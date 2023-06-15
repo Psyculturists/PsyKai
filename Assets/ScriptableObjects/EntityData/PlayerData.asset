@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86455d3c1fb9b464fb3aaaa133a321d1, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  baseStats:
+    health: 25
+    attack: 3
+    defence: 2
+    speed: 2
+  skills:
+  - {fileID: 11400000, guid: a6345f116d476d34b8e81edf7216fae8, type: 2}
+  - {fileID: 11400000, guid: 018b1d67107b5d046aa5eb7f49a73dbc, type: 2}
+  - {fileID: 11400000, guid: ba903281582c0b54ca2b9fa61468be14, type: 2}
+  - {fileID: 11400000, guid: 7cd1ad5fd1fd03c4daa2cd2f5d651604, type: 2}
+  - {fileID: 11400000, guid: a5f311c9e08436644928a2208683ed2f, type: 2}
+  - {fileID: 11400000, guid: faf9ab6dfaa23ee44a3f386abffd37cd, type: 2}
+  - {fileID: 11400000, guid: d83dc9f90dcf5114f9672ccab8c67d6a, type: 2}
+  entityPrefab: {fileID: 3641707893314771118, guid: a0d0e2584f5f74148929ac593a58993b,
+    type: 3}

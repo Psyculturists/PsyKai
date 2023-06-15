@@ -1,0 +1,5 @@
+@resetText 
+@showPrinter 
+@print "Oh no, I have been defeated!"
+@hideAll
+@stop
