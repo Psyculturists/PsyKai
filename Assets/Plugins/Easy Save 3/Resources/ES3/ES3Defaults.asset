@@ -29,12 +29,9 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - Assembly-CSharp
     - Assembly-CSharp-firstpass
-    - Elringus.Naninovel.Runtime
+    - Assembly-CSharp
     - PsdPlugin
-    - Sirenix.OdinInspector.Modules.UnityMathematics
-    - Elringus.Naninovel.Editor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1
