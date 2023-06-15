@@ -6,8 +6,6 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using System.Linq;
 
-namespace FoxieGames
-{
 	[ExecuteAlways]
 	public class RadialLayoutGroup : MonoBehaviour
 	{
@@ -245,4 +243,3 @@ namespace FoxieGames
 			}
 		}
 	}
-}
