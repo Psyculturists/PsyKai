@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using System.Linq;
 
 public class CombatEntity : MonoBehaviour
@@ -15,7 +14,7 @@ public class CombatEntity : MonoBehaviour
     private StatusEffectDurationDictionary currentStatusEffects;
     [SerializeField]
     private StatData baseStats;
-    [SerializeField, ReadOnly]
+    [SerializeField]
     private StatData currentStats;
 
     

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "New Skill", menuName = "Data/Skill")]
 public class Skill : ScriptableObject
@@ -35,7 +34,7 @@ public class Skill : ScriptableObject
     public StatusEffect Status => statusEffect;
     private bool hasStatusEffect => statusEffect != null;
     public bool HasStatusEffect => hasStatusEffect;
-    [SerializeField, ShowIf("hasStatusEffect")]
+    [SerializeField]
     private StatusEffectApplicationData applicationData;
     public StatusEffectApplicationData ApplicationData => applicationData;
 

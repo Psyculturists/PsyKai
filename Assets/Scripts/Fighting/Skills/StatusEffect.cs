@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "Status Effect", menuName = "Data/Status Effect")]
 public class StatusEffect : ScriptableObject

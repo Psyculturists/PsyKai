@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using System.Linq;
 
 [CreateAssetMenu(fileName = "New Drop Table", menuName = "Items/Drop Table")]
 public class DropTable : ScriptableObject
 {
-    [SerializeField, OnValueChanged("TableIsBalanced"), InfoBox("Table is not balanced!!!", "isNotBalanced", InfoMessageType = InfoMessageType.Error)]
+    [SerializeField]
     private ItemOddsDictionary table = new ItemOddsDictionary();
 
     private bool isBalanced = false;

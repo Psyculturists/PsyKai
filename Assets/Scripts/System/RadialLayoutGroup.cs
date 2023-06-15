@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Sirenix.OdinInspector;
 using System.Linq;
 
 	[ExecuteAlways]
@@ -11,15 +10,15 @@ using System.Linq;
 	{
 		[SerializeField]
 		private bool autoSize = true;
-		[SerializeField, OnValueChanged("UpdateOnValueChange")]
+		[SerializeField]
 		private float radius = 100.0f;
-		[SerializeField, EnableIf("autoSize", true), Range(0, 1), OnValueChanged("UpdateOnValueChange")]
+		[SerializeField, Range(0, 1)]
 		private float fractionOfSpaceToFill = 0.9f;
-		[SerializeField, Range(0, 360), OnValueChanged("UpdateOnValueChange")]
+		[SerializeField, Range(0, 360)]
 		private float startPointDegrees = 0.0f;
-		[SerializeField, OnValueChanged("UpdateOnValueChange")]
+		[SerializeField]
 		private bool autoSpace = true;
-		[SerializeField, EnableIf("autoSpace", false), OnValueChanged("UpdateOnValueChange")]
+		[SerializeField]
 		private float spacingDegrees = 0.0f;
 		[SerializeField]
 		private bool rotateAroundCentre = false;
@@ -29,7 +28,6 @@ using System.Linq;
 
 		private bool isFanTweening = false;
 		private bool fanTweenForwards = false;
-		[OnValueChanged("UpdateOnValueChange")]
 		private float fractionThroughFanningTween = 0.0f;
 		public float fanningTime = 0.75f;
 
@@ -48,10 +46,15 @@ using System.Linq;
 			}
 		}
 
-		///<summary>
-		/// Gets the distance between each child element of the radial group - direct line, not along circumference
-		///</summary>
-		private float GetDistanceBetweenElements()
+    private void Awake()
+    {
+        UpdateOnValueChange();
+    }
+
+    ///<summary>
+    /// Gets the distance between each child element of the radial group - direct line, not along circumference
+    ///</summary>
+    private float GetDistanceBetweenElements()
 		{
 			float angle;
 			if(autoSpace)

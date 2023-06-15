@@ -11,13 +11,13 @@ public class Enemy : CombatEntity
     {
         ItemData reward = rewardTable.Evaluate();
         Inventory.GrantItem(reward, 1);
-        PlayDefeatedLine();
-        //PopupManager.Instance.ShowInfoPopup("Reward Obtained!", "You just gained " + reward.ItemName + "!");
+        //PlayDefeatedLine();
+        PopupManager.Instance.ShowInfoPopup("Reward Obtained!", "You just gained " + reward.ItemName + "!");
     }
 
     public void PlayDefeatedLine()
     {
-        NaniNovelTest.Instance.StartNaniNovelSequence();
+        //NaniNovelTest.Instance.StartNaniNovelSequence();
     }
 
     // Start is called before the first frame update

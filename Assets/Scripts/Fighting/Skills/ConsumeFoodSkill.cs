@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "Consume Food Skill", menuName = "Data/Food Skill")]
 public class ConsumeFoodSkill : Skill
@@ -16,8 +15,7 @@ public class ConsumeFoodSkill : Skill
         base.AlternativeCastEffect(target);
         OpenFoodSelect();
     }
-
-    [Button]
+    
     public void OpenFoodSelect()
     {
         CookingUIParent.Instance.OnExitedWithoutUse += ResolveNoFood;
