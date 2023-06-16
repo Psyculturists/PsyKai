@@ -15,6 +15,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   skillName: How does that make you feel?
   damage: 5
+  heals: 0
   attackScaling: 50
   orderOfSkill: 0
   isSelfTargeted: 0

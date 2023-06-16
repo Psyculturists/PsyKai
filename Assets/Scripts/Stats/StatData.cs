@@ -9,6 +9,8 @@ public class StatData
     [SerializeField]
     private int health;
     [SerializeField]
+    private int startingHealth;
+    [SerializeField]
     private int attack;
     [SerializeField]
     private int defence;
@@ -16,6 +18,7 @@ public class StatData
     private int speed;
 
     public int Health => health;
+    public int StartingHealth => startingHealth;
     public int Attack => attack;
     public int Defence => defence;
     public int Speed => speed;
@@ -35,6 +38,9 @@ public class StatData
                 break;
             case StatType.Health:
                 health = ModifiedAmount(overrideValue == -1 ? Health : overrideValue, changeType, change);
+                break;
+            case StatType.StartingHealth:
+                startingHealth = ModifiedAmount(overrideValue == -1 ? StartingHealth : overrideValue, changeType, change);
                 break;
         }
     }
@@ -60,6 +66,23 @@ public class StatData
         defence += otherData.Defence;
         speed += otherData.Speed;
         health += otherData.Health;
+        startingHealth += otherData.startingHealth;
+    }
+
+    public static StatData GetAveragedStatsForLevelBetweenTwoProfiles(StatData startData, StatData endData, int level, int maxLevel)
+    {
+        StatData returnVal = new StatData();
+        returnVal.attack = GetStatAtLevel(startData.attack, endData.attack, level, maxLevel);
+        returnVal.health = GetStatAtLevel(startData.health, endData.health, level, maxLevel);
+        returnVal.startingHealth = GetStatAtLevel(startData.startingHealth, endData.startingHealth, level, maxLevel);
+        returnVal.defence = GetStatAtLevel(startData.defence, endData.defence, level, maxLevel);
+        returnVal.speed = GetStatAtLevel(startData.speed, endData.speed, level, maxLevel);
+        return returnVal;
+    }
+
+    private static int GetStatAtLevel(int startVal, int endVal, int level, int maxLevel)
+    {
+        return Mathf.FloorToInt(startVal + ((endVal - startVal) * ((float)(level-1) / (float)(maxLevel-1))));
     }
 }
 
@@ -69,4 +92,5 @@ public enum StatType
     Defence,
     Speed,
     Health,
+    StartingHealth,
 }

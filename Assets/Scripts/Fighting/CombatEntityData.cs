@@ -12,6 +12,10 @@ public class CombatEntityData : ScriptableObject
     protected List<Skill> skills;
     public List<Skill> Skills => skills;
 
+    [SerializeField]
+    private int expOnDefeat = 0;
+    public int ExpOnDefeat => expOnDefeat;
+
     public Skill GetRandomSkill()
     {
         if(Skills == null)

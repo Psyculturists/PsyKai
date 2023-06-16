@@ -15,6 +15,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   skillName: Introduce Maslow's
   damage: 5
+  heals: 1
   attackScaling: 100
   orderOfSkill: 0
   isSelfTargeted: 0

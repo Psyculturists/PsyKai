@@ -22,13 +22,18 @@ public class CombatEntity : MonoBehaviour
     private float health;
     public float Health => health;
 
-    public bool IsAlive => Health > 0;
+    public virtual bool HasBeenSaved => Health >= currentStats.Health;
+    public virtual bool HasBeenFailed => Health <= 0;
+    public virtual bool IsAlive => Health > 0 && !HasBeenSaved;
 
     private List<Skill> skills;
     public List<Skill> Skills => skills;
 
-    public void Initialise(StatData baseStatData, List<Skill> baseSkills)
+    protected CombatEntityData entityData;
+
+    public void Initialise(CombatEntityData data, StatData baseStatData, List<Skill> baseSkills)
     {
+        entityData = data;
         baseStats = baseStatData;
         currentStats.AddStats(baseStats);
         skills = new List<Skill>();
@@ -36,7 +41,7 @@ public class CombatEntity : MonoBehaviour
         {
             skills.Add(skill);
         }
-        health = baseStats.Health;
+        health = baseStats.StartingHealth;
         healthBar.UpdateBar((int)Health, baseStats.Health);
     }
 

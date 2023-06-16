@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     health: 20
+    startingHealth: 10
     attack: 2
     defence: 2
     speed: 2
   skills:
   - {fileID: 11400000, guid: a6345f116d476d34b8e81edf7216fae8, type: 2}
+  expOnDefeat: 10
   entityName: Disgruntled Mage
   entityPrefab: {fileID: 4677890420370583794, guid: 21463b0a12cc0c74b83c085e37b4ca0f,
     type: 3}

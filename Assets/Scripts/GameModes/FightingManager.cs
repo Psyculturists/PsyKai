@@ -78,14 +78,15 @@ public class FightingManager : MonoBehaviour
     private void SpawnPlayer()
     {
         spawnedPlayer = Instantiate(playerData.EntityPrefab, playerSpawn);
-        spawnedPlayer.Initialise(playerData.BaseStats, playerData.Skills);
+        // use current level stats, rather than base stats.
+        spawnedPlayer.Initialise(playerData, playerData.StatsForCurrentLevel, playerData.Skills);
         spawnedPlayer.SetName("Psychologist-kun");
     }
     
     private void SpawnEnemy(EnemyEntityData enemyData)
     {
         spawnedEnemy = Instantiate(enemyData.EntityPrefab, enemySpawn);
-        spawnedEnemy.Initialise(enemyData.BaseStats, enemyData.Skills);
+        spawnedEnemy.Initialise(enemyData, enemyData.BaseStats, enemyData.Skills);
         spawnedEnemy.SetName(enemyData.EntityName);
     }
 
@@ -120,9 +121,16 @@ public class FightingManager : MonoBehaviour
         {
             spawnedEnemy.CastSkill(spawnedEnemy.GetRandomSkill(), spawnedPlayer);
         }
-        else
+        else if(spawnedEnemy.HasBeenSaved)
         {
             EndCombat(true);
+            return;
+        }
+        else if(spawnedEnemy.HasBeenFailed)
+        {
+            //need another end case for failing to save them?
+            EndCombat(false);
+            return;
         }
 
         if (!spawnedPlayer.IsAlive)

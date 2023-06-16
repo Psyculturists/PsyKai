@@ -13,6 +13,8 @@ public class Enemy : CombatEntity
         Inventory.GrantItem(reward, 1);
         //PlayDefeatedLine();
         PopupManager.Instance.ShowInfoPopup("Reward Obtained!", "You just gained " + reward.ItemName + "!");
+        //temp line
+        PlayerDataManager.Instance.GainExp(entityData.ExpOnDefeat);
     }
 
     public void PlayDefeatedLine()

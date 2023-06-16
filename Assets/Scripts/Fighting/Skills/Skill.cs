@@ -15,6 +15,9 @@ public class Skill : ScriptableObject
     private int damage;
     public int Damage => damage;
     [SerializeField]
+    private bool heals = false;
+    public bool Heals => heals;
+    [SerializeField]
     private float attackScaling = 50.0f;
     public float AttackScaling => attackScaling;
 
@@ -49,6 +52,10 @@ public class Skill : ScriptableObject
         float percentDamageAmpFromStatDiff = (float)usersAttack / (float)targetDefence;
 
         int damageDealt = Mathf.RoundToInt(Mathf.Clamp(preMitigated * percentDamageAmpFromStatDiff, 0, Mathf.Infinity));
+        if(heals)
+        {
+            damageDealt = -damageDealt;
+        }
         Debug.Log(damageDealt);
         return damageDealt;
     }
