@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   skillName: How does that make you feel?
+  levelRequired: 1
   damage: 5
   heals: 0
   attackScaling: 50
@@ -24,3 +25,4 @@ MonoBehaviour:
   applicationData:
     chance: 0
     turnDuration: 0
+  description: smol hit

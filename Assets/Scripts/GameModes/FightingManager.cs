@@ -79,7 +79,7 @@ public class FightingManager : MonoBehaviour
     {
         spawnedPlayer = Instantiate(playerData.EntityPrefab, playerSpawn);
         // use current level stats, rather than base stats.
-        spawnedPlayer.Initialise(playerData, playerData.StatsForCurrentLevel, playerData.Skills);
+        spawnedPlayer.Initialise(playerData, playerData.StatsForCurrentLevel, PlayerDataManager.Instance.CurrentSkillLoadout);
         spawnedPlayer.SetName("Psychologist-kun");
     }
     
@@ -93,7 +93,7 @@ public class FightingManager : MonoBehaviour
     public void ShowRadial()
     {
         radialMenu.gameObject.SetActive(true);
-        radialMenu.Show(playerData.Skills);
+        radialMenu.Show(spawnedPlayer.Skills);
         openRadialButton.gameObject.SetActive(false);
     }
 

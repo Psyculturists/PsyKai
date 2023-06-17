@@ -9,26 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86455d3c1fb9b464fb3aaaa133a321d1, type: 3}
-  m_Name: PlayerData 1
+  m_Script: {fileID: 11500000, guid: 7546591a34dc7144fac02681285ba327, type: 3}
+  m_Name: UnlockablePlayerSkills
   m_EditorClassIdentifier: 
-  baseStats:
-    health: 25
-    startingHealth: 25
-    attack: 3
-    defence: 2
-    speed: 2
-  skills:
+  playerUnlockables:
   - {fileID: 11400000, guid: fffe6f7cec959384588f4e9e5d224052, type: 2}
   - {fileID: 11400000, guid: d5e574738930f634fa2c531797028e2e, type: 2}
   - {fileID: 11400000, guid: 7fef91de571bf664fac502d4ee6708d9, type: 2}
+  - {fileID: 11400000, guid: 1f1ba2a9bc9353046a9ecb74f6ebf948, type: 2}
+  - {fileID: 11400000, guid: 5500131b9732e3d479d618dfa95af832, type: 2}
   - {fileID: 11400000, guid: e2a49758e8b61bf4a93853fc9f174ded, type: 2}
-  expOnDefeat: 0
-  entityPrefab: {fileID: 3641707893314771118, guid: a0d0e2584f5f74148929ac593a58993b,
-    type: 3}
-  finalStats:
-    health: 350
-    startingHealth: 0
-    attack: 80
-    defence: 60
-    speed: 70

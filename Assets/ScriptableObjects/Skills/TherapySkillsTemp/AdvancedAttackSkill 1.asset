@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   skillName: Introduce Maslow's
+  levelRequired: 1
   damage: 5
   heals: 1
   attackScaling: 100
@@ -24,3 +25,4 @@ MonoBehaviour:
   applicationData:
     chance: 0
     turnDuration: 0
+  description: big hit

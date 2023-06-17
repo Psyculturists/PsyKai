@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   skillName: Deep Breathing
+  levelRequired: 1
   damage: 0
+  heals: 0
   attackScaling: 50
   orderOfSkill: 0
   isSelfTargeted: 0
@@ -23,3 +25,4 @@ MonoBehaviour:
   applicationData:
     chance: 100
     turnDuration: 5
+  description: debuff enemy

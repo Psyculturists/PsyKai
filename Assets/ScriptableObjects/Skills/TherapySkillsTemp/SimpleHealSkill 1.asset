@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   skillName: Take Notes
+  levelRequired: 1
   damage: 2
+  heals: 0
   attackScaling: 50
   orderOfSkill: 0
   isSelfTargeted: 1
@@ -23,3 +25,4 @@ MonoBehaviour:
   applicationData:
     chance: 0
     turnDuration: 0
+  description: heal brrrr

@@ -35,6 +35,8 @@ public class CookingUIParent : MonoBehaviour
             Instance = this;
         }
         exitButton.onClick.AddListener(Exit);
+        //to make it disable on init
+        this.gameObject.SetActive(false);
     }
 
     public void Exit()

@@ -8,6 +8,9 @@ public class PlayerDataManager : MonoBehaviour
 
     [SerializeField]
     private PlayerEntityData basePlayerData;
+    [SerializeField]
+    private PlayerUnlockableSkills unlockableSkills;
+    public List<Skill> UnlockableSkills => unlockableSkills.PlayerUnlockables;
 
     private int playerLevel = 1;
     public int PlayerLevel => playerLevel;
@@ -16,6 +19,13 @@ public class PlayerDataManager : MonoBehaviour
 
     private int maxLevel = 100;
     public int MaxLevel => maxLevel;
+
+    // where do we put this data?
+    private int maxSkills = 4;
+    public int MaxSkills => maxSkills;
+
+    public List<Skill> currentSkillLoadout = new List<Skill>();
+    public List<Skill> CurrentSkillLoadout => currentSkillLoadout;
 
     private void Awake()
     {
@@ -27,6 +37,7 @@ public class PlayerDataManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        InitialisePlayerElements();
     }
 
     // Update is called once per frame
@@ -43,5 +54,31 @@ public class PlayerDataManager : MonoBehaviour
         Debug.Log(levelsExp);
         playerLevel = Mathf.Clamp(playerLevel + levelsExp.Item1, 1, maxLevel);
         currentExperience = levelsExp.Item2;
+    }
+
+    public void InitialisePlayerElements()
+    {
+        // save/load tied in here?
+
+
+        currentSkillLoadout.Clear();
+        foreach(Skill skill in basePlayerData.Skills)
+        {
+            currentSkillLoadout.Add(skill);
+        }
+    }
+
+    public StatData CurrentLevelStats()
+    {
+        return basePlayerData.StatsForCurrentLevel;
+    }
+
+    public void UpdateSkillLoadout(List<Skill> newSkills)
+    {
+        currentSkillLoadout.Clear();
+        foreach(Skill skill in newSkills)
+        {
+            currentSkillLoadout.Add(skill);
+        }
     }
 }

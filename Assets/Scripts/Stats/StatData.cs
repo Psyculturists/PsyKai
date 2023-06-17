@@ -18,10 +18,15 @@ public class StatData
     private int speed;
 
     public int Health => health;
+    public string HealthString => "Health";
     public int StartingHealth => startingHealth;
+    public string StartingHealthString => "Starting Health";
     public int Attack => attack;
+    public string AttackString => "Attack";
     public int Defence => defence;
+    public string DefenceString => "Defence";
     public int Speed => speed;
+    public string SpeedString => "Speed";
 
     public void ModifyStat(StatType stat, StatChangeType changeType, float change, int overrideValue = -1)
     {
@@ -84,8 +89,27 @@ public class StatData
     {
         return Mathf.FloorToInt(startVal + ((endVal - startVal) * ((float)(level-1) / (float)(maxLevel-1))));
     }
+
+    public (string, int) GetStatFromStatType(StatType type)
+    {
+        switch(type)
+        {
+            case StatType.Attack:
+                return (AttackString, Attack);
+            case StatType.Defence:
+                return (DefenceString, Defence);
+            case StatType.Speed:
+                return (SpeedString, Speed);
+            case StatType.Health:
+                return (HealthString, Health);
+            case StatType.StartingHealth:
+                return (StartingHealthString, StartingHealth);
+        }
+        return ("none", 0);
+    }
 }
 
+[Serializable]
 public enum StatType
 {
     Attack,

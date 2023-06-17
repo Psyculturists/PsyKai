@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55eed32370bcd214393848af82ff7af1, type: 3}
-  m_Name: StatusSkill_Self 1
+  m_Name: SKill A
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  skillName: Insightful Comments
-  levelRequired: 2
-  damage: 0
-  heals: 0
-  attackScaling: 50
+  icon: {fileID: 21300000, guid: a5c3cee25dbc1734e98bcf6c5ce23c15, type: 3}
+  skillName: Help Listen
+  damage: 10
+  heals: 1
+  attackScaling: 75
   orderOfSkill: 0
-  isSelfTargeted: 1
+  isSelfTargeted: 0
   hasDelayedResolution: 0
-  statusEffect: {fileID: 11400000, guid: f720734e174dce943b236b50774fbcae, type: 2}
+  statusEffect: {fileID: 0}
   applicationData:
-    chance: 100
-    turnDuration: 5
-  description: debuff enemy
+    chance: 0
+    turnDuration: 0

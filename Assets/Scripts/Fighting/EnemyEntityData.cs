@@ -11,4 +11,7 @@ public class EnemyEntityData : CombatEntityData
     [SerializeField]
     protected Enemy entityPrefab;
     public Enemy EntityPrefab => entityPrefab;
+    [SerializeField]
+    private int suggestedLevel;
+    public int SuggestedLevel => suggestedLevel;
 }

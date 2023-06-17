@@ -12,6 +12,9 @@ public class Skill : ScriptableObject
     private string skillName;
     public string SkillName => skillName;
     [SerializeField]
+    private int levelRequired = 1;
+    public int LevelRequired => levelRequired;
+    [SerializeField]
     private int damage;
     public int Damage => damage;
     [SerializeField]
@@ -40,6 +43,10 @@ public class Skill : ScriptableObject
     [SerializeField]
     private StatusEffectApplicationData applicationData;
     public StatusEffectApplicationData ApplicationData => applicationData;
+
+    [SerializeField, Multiline]
+    private string description;
+    public string Description => description;
 
     public System.Action<bool> OnResolution;
 
