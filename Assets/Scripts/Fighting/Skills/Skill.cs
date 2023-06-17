@@ -10,7 +10,7 @@ public class Skill : ScriptableObject
     public Sprite Icon => icon;
     [SerializeField]
     private string skillName;
-    public string SkillName => skillName;
+    public string SkillName { get => skillName; set => skillName = value; }
     [SerializeField]
     private int damage;
     public int Damage => damage;
