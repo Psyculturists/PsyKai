@@ -22,6 +22,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6345f116d476d34b8e81edf7216fae8, type: 2}
   - {fileID: 11400000, guid: a5f311c9e08436644928a2208683ed2f, type: 2}
   expOnDefeat: 10
-  entityName: 
+  entityName: Sad Boi
   entityPrefab: {fileID: 4677890420370583794, guid: 21463b0a12cc0c74b83c085e37b4ca0f,
     type: 3}
+  suggestedLevel: 1

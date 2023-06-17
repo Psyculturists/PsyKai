@@ -23,5 +23,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a6345f116d476d34b8e81edf7216fae8, type: 2}
   expOnDefeat: 25
   entityName: Penguino
-  entityPrefab: {fileID: 4677890420370583794, guid: 21463b0a12cc0c74b83c085e37b4ca0f,
+  entityPrefab: {fileID: 7593913830570287294, guid: c995d1ee6b8018c48a399cbac3cef607,
     type: 3}
+  suggestedLevel: 4

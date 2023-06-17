@@ -17,6 +17,8 @@ public class NavigationBar : MonoBehaviour
     private GameObject farmingScreen;
     [SerializeField]
     private FightingManager fightingScreen;
+    [SerializeField]
+    private EnemySelectDebug enemySelectDebug;
 
     [SerializeField]
     private Button fishingButton;
@@ -46,7 +48,8 @@ public class NavigationBar : MonoBehaviour
         //fishingButton.onClick.AddListener(() => OpenScreen(fishingScreen));
         cookingButton.onClick.AddListener(() => OpenCooking());
         //farmingButton.onClick.AddListener(() => OpenScreen(farmingScreen));
-        fightingButton.onClick.AddListener(() => OpenFighting());
+        //fightingButton.onClick.AddListener(() => OpenFighting());
+        fightingButton.onClick.AddListener(() => enemySelectDebug.ToggleOpen());
     }
 
     private void OpenScreen(GameObject screen)
@@ -90,6 +93,11 @@ public class NavigationBar : MonoBehaviour
     {
         OpenScreen(fightingScreen.gameObject);
         fightingScreen.OpenFightingScene();
+    }
+    public void OpenFightingForEnemy(EnemyEntityData data)
+    {
+        OpenScreen(fightingScreen.gameObject);
+        fightingScreen.OpenFightingForEnemy(data);
     }
 
     public void OpenFoodFromBattle()

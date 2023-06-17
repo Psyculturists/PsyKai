@@ -47,11 +47,17 @@ public class FightingManager : MonoBehaviour
         EstablishCombatScene();
     }
 
-    private void EstablishCombatScene()
+    public void OpenFightingForEnemy(EnemyEntityData data)
+    {
+        Initialise();
+        EstablishCombatScene(data);
+    }
+
+    private void EstablishCombatScene(EnemyEntityData data = null)
     {
         Cleanup();
         SpawnPlayer();
-        SpawnEnemy(tempEnemyData);
+        SpawnEnemy(data == null ? tempEnemyData : data);
         turnCounter = 1;
         HideRadial();
     }
@@ -166,7 +172,7 @@ public class FightingManager : MonoBehaviour
         }
         else
         {
-            PopupManager.Instance.ShowInfoPopup("Oh Dear :(", "It seems you lost! Try making some food to help out next time! (pending extended game loop)");
+            PopupManager.Instance.ShowInfoPopup("Oh Dear :(", "It seems you lost! Try making some food to help out next time! (pending extended game loop)", () => NavigationBar.Instance.OpenHub());
         }
         TotalRestart();
         //stuff

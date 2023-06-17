@@ -24,3 +24,4 @@ MonoBehaviour:
   entityName: Disgruntled Mage
   entityPrefab: {fileID: 4677890420370583794, guid: 21463b0a12cc0c74b83c085e37b4ca0f,
     type: 3}
+  suggestedLevel: 1

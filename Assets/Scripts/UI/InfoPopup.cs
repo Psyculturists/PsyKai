@@ -13,20 +13,29 @@ public class InfoPopup : MonoBehaviour
     [SerializeField]
     private Button confirmButton;
 
+    private System.Action onConfirmAction;
+
     // Start is called before the first frame update
     void Start()
     {
         confirmButton.onClick.AddListener(Close);
     }
 
-    public void Show(string title, string body)
+    private void OnDestroy()
+    {
+        onConfirmAction = null;
+    }
+
+    public void Show(string title, string body, System.Action onConfirm = null)
     {
         titleText.text = title;
         bodyText.text = body;
+        onConfirmAction = onConfirm;
     }
 
     private void Close()
     {
+        onConfirmAction?.Invoke();
         Destroy(this.gameObject);
     }
 

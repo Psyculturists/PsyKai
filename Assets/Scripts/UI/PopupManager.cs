@@ -30,9 +30,9 @@ public class PopupManager : MonoBehaviour
         }
     }
 
-    public void ShowInfoPopup(string title, string body)
+    public void ShowInfoPopup(string title, string body, System.Action onConfirm = null)
     {
         InfoPopup popup = Instantiate(infoPopupPrefab, this.transform);
-        popup.Show(title, body);
+        popup.Show(title, body, onConfirm);
     }
 }
