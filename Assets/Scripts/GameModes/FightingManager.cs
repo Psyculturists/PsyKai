@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class FightingManager : MonoBehaviour
 {
+    public static FightingManager Instance;
+
+
+    [SerializeField]
+    private GameObject root;
     [SerializeField]
     private Transform playerSpawn;
     [SerializeField]
@@ -20,6 +25,9 @@ public class FightingManager : MonoBehaviour
 
     private PlayerEntity spawnedPlayer;
     private Enemy spawnedEnemy;
+    private List<Enemy> spawnedEnemies = new List<Enemy>();
+    [SerializeField]
+    private List<Transform> enemySpawnPoints = new List<Transform>();
 
     private int turnCounter = 1;
 
@@ -28,7 +36,14 @@ public class FightingManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void Initialise()
@@ -41,14 +56,22 @@ public class FightingManager : MonoBehaviour
         }
     }
 
+    public void CloseFightingScene()
+    {
+        Cleanup();
+        root.gameObject.SetActive(false);
+    }
+
     public void OpenFightingScene()
     {
+        root.gameObject.SetActive(true);
         Initialise();
         EstablishCombatScene();
     }
 
     public void OpenFightingForEnemy(EnemyEntityData data)
     {
+        root.gameObject.SetActive(true);
         Initialise();
         EstablishCombatScene(data);
     }
@@ -72,6 +95,11 @@ public class FightingManager : MonoBehaviour
         {
             Destroy(spawnedEnemy.gameObject);
         }
+        foreach(Transform t in enemySpawnPoints)
+        {
+            t.DestroyAllChildren();
+        }
+        spawnedEnemies.Clear();
     }
 
     private void TotalRestart()
@@ -91,9 +119,13 @@ public class FightingManager : MonoBehaviour
     
     private void SpawnEnemy(EnemyEntityData enemyData)
     {
-        spawnedEnemy = Instantiate(enemyData.EntityPrefab, enemySpawn);
+        Transform parentTransform = enemySpawnPoints[spawnedEnemies.Count];
+        
+        spawnedEnemy = Instantiate(enemyData.EntityPrefab, parentTransform);
         spawnedEnemy.Initialise(enemyData, enemyData.BaseStats, enemyData.Skills);
         spawnedEnemy.SetName(enemyData.EntityName);
+
+        spawnedEnemies.Add(spawnedEnemy);
     }
 
     public void ShowRadial()
@@ -176,6 +208,44 @@ public class FightingManager : MonoBehaviour
         }
         TotalRestart();
         //stuff
+    }
+
+    private void OnVictoryCallback()
+    {
+        CloseFightingScene();
+    }
+
+    private void GetCombatRewards()
+    {
+        Dictionary<ItemData, int> rewardsToGet = new Dictionary<ItemData, int>();
+        int expToGet = 0;
+        foreach (Enemy e in spawnedEnemies)
+        {
+            // drops can probably happen in more than multiples of 1?
+            ItemData reward = e.RewardTable.Evaluate();
+            Inventory.GrantItem(reward, 1);
+            if (rewardsToGet.ContainsKey(reward))
+            {
+                rewardsToGet[reward] = rewardsToGet[reward] + 1;
+            }
+            else
+            {
+                rewardsToGet[reward] = 1;
+            }
+            expToGet += e.ExpForDefeat;
+        }
+        string rewardsAsStrings = "";
+
+        int rewardsAdded = 1;
+        foreach(var pair in rewardsToGet)
+        {
+            rewardsAsStrings += pair.Key.ItemName + " x" + pair.Value + (rewardsAdded < rewardsToGet.Count ? ", " : "!");
+            rewardsAdded++;
+        }
+        //PlayDefeatedLine();
+        PopupManager.Instance.ShowInfoPopup("Reward Obtained!", "You just gained " + rewardsAsStrings + "!", () => CloseFightingScene());
+        //temp line
+        PlayerDataManager.Instance.GainExp(expToGet);
     }
 
 

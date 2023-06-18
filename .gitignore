@@ -4,3 +4,6 @@ obj
 .vs
 *.csproj
 *.sln
+Logs
+.vsconfig
+UserSettings

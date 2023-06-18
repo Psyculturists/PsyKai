@@ -10,6 +10,6 @@ public class FleeSkill : Skill
     {
         base.AlternativeCastEffect(target);
         ResolveSkill(true);
-        NavigationBar.Instance.OpenHub();
+        FightingManager.Instance.CloseFightingScene();
     }
 }

@@ -30,6 +30,7 @@ public class CombatEntity : MonoBehaviour
     public List<Skill> Skills => skills;
 
     protected CombatEntityData entityData;
+    public int ExpForDefeat => entityData.ExpOnDefeat;
 
     public void Initialise(CombatEntityData data, StatData baseStatData, List<Skill> baseSkills)
     {

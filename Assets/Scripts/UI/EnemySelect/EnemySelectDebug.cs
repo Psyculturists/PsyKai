@@ -53,7 +53,7 @@ public class EnemySelectDebug : MonoBehaviour
 
     private void EnterCombatWithEnemy(EnemyEntityData enemyData)
     {
-        NavigationBar.Instance.OpenFightingForEnemy(enemyData);
+        FightingManager.Instance.OpenFightingForEnemy(enemyData);
         Close();
     }
 }

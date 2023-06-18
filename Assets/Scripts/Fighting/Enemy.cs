@@ -6,6 +6,7 @@ public class Enemy : CombatEntity
 {
     [SerializeField]
     private DropTable rewardTable;
+    public DropTable RewardTable => rewardTable;
 
     public void OnDefeat()
     {

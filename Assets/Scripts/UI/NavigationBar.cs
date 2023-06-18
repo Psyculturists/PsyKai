@@ -54,7 +54,7 @@ public class NavigationBar : MonoBehaviour
 
     private void OpenScreen(GameObject screen)
     {
-        if(screen.activeInHierarchy)
+        if(screen?.activeInHierarchy == true)
         {
             return;
         }
@@ -63,7 +63,6 @@ public class NavigationBar : MonoBehaviour
         HubScreen.SetActive(screen == HubScreen);
         cookingScreen.gameObject.SetActive(screen == cookingScreen.gameObject);
         //farmingScreen.SetActive(screen == farmingScreen);
-        fightingScreen.gameObject.SetActive(screen == fightingScreen.gameObject);
     }
 
     public void OpenHub()
@@ -110,5 +109,16 @@ public class NavigationBar : MonoBehaviour
     {
         cookingScreen.gameObject.SetActive(false);
         fightingScreen.gameObject.SetActive(true);
+    }
+
+    public void HideAllMenus()
+    {
+        OpenScreen(null);
+    }
+
+    public void LaunchMap()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SideScroller", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        HideAllMenus();
     }
 }
