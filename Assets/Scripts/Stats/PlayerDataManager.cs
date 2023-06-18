@@ -27,6 +27,12 @@ public class PlayerDataManager : MonoBehaviour
     public List<Skill> currentSkillLoadout = new List<Skill>();
     public List<Skill> CurrentSkillLoadout => currentSkillLoadout;
 
+    public static System.Action ExpGainOccured;
+
+    private const string LEVEL_SAVE_KEY = "PlayerLevel";
+    private const string EXP_SAVE_KEY = "PlayerExp";
+    private const string SKILLS_SAVE_KEY = "SkillLoadout";
+
     private void Awake()
     {
         if (Instance == null)
@@ -38,6 +44,12 @@ public class PlayerDataManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         InitialisePlayerElements();
+    }
+
+    private void OnDestroy()
+    {
+        if(Instance == this)
+        ExpGainOccured = null;
     }
 
     // Update is called once per frame
@@ -54,6 +66,9 @@ public class PlayerDataManager : MonoBehaviour
         Debug.Log(levelsExp);
         playerLevel = Mathf.Clamp(playerLevel + levelsExp.Item1, 1, maxLevel);
         currentExperience = levelsExp.Item2;
+
+        ExpGainOccured?.Invoke();
+        SaveLevelState();
     }
 
     public void InitialisePlayerElements()
@@ -66,6 +81,8 @@ public class PlayerDataManager : MonoBehaviour
         {
             currentSkillLoadout.Add(skill);
         }
+
+        LoadLevelState();
     }
 
     public StatData CurrentLevelStats()
@@ -80,5 +97,20 @@ public class PlayerDataManager : MonoBehaviour
         {
             currentSkillLoadout.Add(skill);
         }
+        SaveLevelState();
+    }
+
+    private void SaveLevelState()
+    {
+        ES3.Save(LEVEL_SAVE_KEY, PlayerLevel);
+        ES3.Save(EXP_SAVE_KEY, currentExperience);
+        ES3.Save(SKILLS_SAVE_KEY, CurrentSkillLoadout);
+    }
+
+    private void LoadLevelState()
+    {
+        playerLevel = ES3.Load(LEVEL_SAVE_KEY, playerLevel);
+        currentExperience = ES3.Load(EXP_SAVE_KEY, currentExperience);
+        currentSkillLoadout = ES3.Load(SKILLS_SAVE_KEY, currentSkillLoadout);
     }
 }
