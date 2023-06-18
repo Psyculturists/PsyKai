@@ -31,6 +31,8 @@ public class FightingManager : MonoBehaviour
     private List<Transform> enemySpawnPoints = new List<Transform>();
 
     private int turnCounter = 1;
+    Dictionary<ItemData, int> rewardsToGet = new Dictionary<ItemData, int>();
+    private int currentFightExp = 0;
 
     private bool hasInitialised = false;
 
@@ -84,6 +86,8 @@ public class FightingManager : MonoBehaviour
         SpawnEnemy(data == null ? tempEnemyData : data);
         turnCounter = 1;
         HideRadial();
+        currentFightExp = 0;
+        rewardsToGet.Clear();
     }
 
     private void EstablishCombatScene(List<EnemyEntityData> data = null)
@@ -103,6 +107,8 @@ public class FightingManager : MonoBehaviour
         }
         turnCounter = 1;
         HideRadial();
+        currentFightExp = 0;
+        rewardsToGet.Clear();
     }
 
     private void Cleanup()
@@ -201,6 +207,10 @@ public class FightingManager : MonoBehaviour
         {
             EndCombat(true);
         }
+        else if(targetedEnemy == null || targetedEnemy.HasBeenSaved)
+        {
+            SelectTarget(spawnedEnemies.Find(e => !e.HasBeenSaved && e.IsAlive));
+        }
 
         if (!spawnedPlayer.IsAlive)
         {
@@ -215,6 +225,18 @@ public class FightingManager : MonoBehaviour
     private void OnEnemySaved(Enemy enemy)
     {
         enemy.OnDefeat();
+        currentFightExp += enemy.ExpForDefeat;
+
+        ItemData reward = enemy.RewardTable.Evaluate();
+        if (rewardsToGet.ContainsKey(reward))
+        {
+            rewardsToGet[reward] = rewardsToGet[reward] + 1;
+        }
+        else
+        {
+            rewardsToGet[reward] = 1;
+        }
+
         spawnedEnemies.Remove(enemy);
         Destroy(enemy.gameObject);
     }
@@ -258,35 +280,21 @@ public class FightingManager : MonoBehaviour
 
     private void GetCombatRewards()
     {
-        Dictionary<ItemData, int> rewardsToGet = new Dictionary<ItemData, int>();
-        int expToGet = 0;
-        foreach (Enemy e in spawnedEnemies)
-        {
-            // drops can probably happen in more than multiples of 1?
-            ItemData reward = e.RewardTable.Evaluate();
-            Inventory.GrantItem(reward, 1);
-            if (rewardsToGet.ContainsKey(reward))
-            {
-                rewardsToGet[reward] = rewardsToGet[reward] + 1;
-            }
-            else
-            {
-                rewardsToGet[reward] = 1;
-            }
-            expToGet += e.ExpForDefeat;
-        }
         string rewardsAsStrings = "";
 
         int rewardsAdded = 1;
         foreach(var pair in rewardsToGet)
         {
+            Inventory.GrantItem(pair.Key, pair.Value);
             rewardsAsStrings += pair.Key.ItemName + " x" + pair.Value + (rewardsAdded < rewardsToGet.Count ? ", " : "!");
             rewardsAdded++;
         }
+        rewardsToGet.Clear();
         //PlayDefeatedLine();
+        PlayerDataManager.Instance.GainExp(currentFightExp);
+        currentFightExp = 0;
         PopupManager.Instance.ShowInfoPopup("Reward Obtained!", "You just gained " + rewardsAsStrings + "!", () => CloseFightingScene());
         //temp line
-        PlayerDataManager.Instance.GainExp(expToGet);
     }
 
     private void SelectTarget(CombatEntity entity)
