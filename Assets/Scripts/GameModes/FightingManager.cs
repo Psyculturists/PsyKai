@@ -24,7 +24,8 @@ public class FightingManager : MonoBehaviour
     private Button openRadialButton;
 
     private PlayerEntity spawnedPlayer;
-    private Enemy spawnedEnemy;
+    private Enemy targetedEnemy;
+    //currently spawn locations might bug out if respawning enemies or summons
     private List<Enemy> spawnedEnemies = new List<Enemy>();
     [SerializeField]
     private List<Transform> enemySpawnPoints = new List<Transform>();
@@ -110,10 +111,6 @@ public class FightingManager : MonoBehaviour
         {
             Destroy(spawnedPlayer.gameObject);
         }
-        if(spawnedEnemy)
-        {
-            Destroy(spawnedEnemy.gameObject);
-        }
         foreach(Transform t in enemySpawnPoints)
         {
             t.DestroyAllChildren();
@@ -138,12 +135,15 @@ public class FightingManager : MonoBehaviour
     private void SpawnEnemy(EnemyEntityData enemyData)
     {
         Transform parentTransform = enemySpawnPoints[spawnedEnemies.Count];
-        
-        spawnedEnemy = Instantiate(enemyData.EntityPrefab, parentTransform);
-        spawnedEnemy.Initialise(enemyData, enemyData.BaseStats, enemyData.Skills);
-        spawnedEnemy.SetName(enemyData.EntityName);
 
+        Enemy spawnedEnemy = Instantiate(enemyData.EntityPrefab, parentTransform);
+        spawnedEnemy.Initialise(enemyData, enemyData.BaseStats, enemyData.Skills, SelectTarget);
+        spawnedEnemy.SetName(enemyData.EntityName);
         spawnedEnemies.Add(spawnedEnemy);
+        if(spawnedEnemies.Count == 1 && targetedEnemy == null)
+        {
+            SelectTarget(spawnedEnemies[0]);
+        }
     }
 
     public void ShowRadial()
@@ -162,7 +162,7 @@ public class FightingManager : MonoBehaviour
     private void OnSkillUsed(Skill skill)
     {
         skill.OnResolution += OnSkillFinishedFiring;
-        spawnedPlayer.CastSkill(skill, spawnedEnemy);
+        spawnedPlayer.CastSkill(skill, targetedEnemy);
         HideRadial();
         
     }
@@ -173,20 +173,33 @@ public class FightingManager : MonoBehaviour
         {
             return;
         }
-        if (spawnedEnemy.IsAlive)
+        List<Enemy> enemiesSavedThisRound = new List<Enemy>();
+        foreach (Enemy enemy in spawnedEnemies)
         {
-            spawnedEnemy.CastSkill(spawnedEnemy.GetRandomSkill(), spawnedPlayer);
+            if (enemy.IsAlive)
+            {
+                enemy.CastSkill(enemy.GetRandomSkill(), spawnedPlayer);
+            }
+            else if (enemy.HasBeenSaved)
+            {
+                enemiesSavedThisRound.Add(enemy);
+                continue;
+            }
+            else if (enemy.HasBeenFailed)
+            {
+                //need another end case for failing to save them?
+                EndCombat(false);
+                return;
+            }
         }
-        else if(spawnedEnemy.HasBeenSaved)
+        foreach(Enemy enemy in enemiesSavedThisRound)
+        {
+            OnEnemySaved(enemy);
+            // make them non-targets, or remove them?
+        }
+        if(spawnedEnemies.Count == 0)
         {
             EndCombat(true);
-            return;
-        }
-        else if(spawnedEnemy.HasBeenFailed)
-        {
-            //need another end case for failing to save them?
-            EndCombat(false);
-            return;
         }
 
         if (!spawnedPlayer.IsAlive)
@@ -199,12 +212,22 @@ public class FightingManager : MonoBehaviour
         }
     }
 
+    private void OnEnemySaved(Enemy enemy)
+    {
+        enemy.OnDefeat();
+        spawnedEnemies.Remove(enemy);
+        Destroy(enemy.gameObject);
+    }
+
     private void TriggerNextTurn()
     {
         Debug.Log("Next turn triggered");
         turnCounter++;
         spawnedPlayer?.ReduceStatusTimers(1);
-        spawnedEnemy?.ReduceStatusTimers(1);
+        foreach (Enemy enemy in spawnedEnemies)
+        {
+            enemy?.ReduceStatusTimers(1);
+        }
     }
 
     private void OnSkillCanceled()
@@ -218,7 +241,6 @@ public class FightingManager : MonoBehaviour
 
         if(playerVictory)
         {
-            spawnedEnemy.OnDefeat();
             GetCombatRewards();
         }
         else
@@ -265,6 +287,21 @@ public class FightingManager : MonoBehaviour
         PopupManager.Instance.ShowInfoPopup("Reward Obtained!", "You just gained " + rewardsAsStrings + "!", () => CloseFightingScene());
         //temp line
         PlayerDataManager.Instance.GainExp(expToGet);
+    }
+
+    private void SelectTarget(CombatEntity entity)
+    {
+        bool selectingCurrent = targetedEnemy == entity;
+
+        if(!selectingCurrent && targetedEnemy != null)
+        {
+            targetedEnemy.ToggleIndicator(false);
+        }
+        targetedEnemy = entity as Enemy;
+        if(!selectingCurrent)
+        {
+            targetedEnemy.ToggleIndicator(true);
+        }
     }
 
 

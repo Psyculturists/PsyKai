@@ -13,6 +13,8 @@ public class EnemySelectDebug : MonoBehaviour
 
     [SerializeField]
     private List<EnemyEntityData> enemyList;
+    [SerializeField]
+    private List<EnemyGroup> enemyGroupList;
 
     private List<EnemySelectButton> spawnedButtons = new List<EnemySelectButton>();
 
@@ -49,9 +51,20 @@ public class EnemySelectDebug : MonoBehaviour
             enemy.Initialise(data, EnterCombatWithEnemy);
             spawnedButtons.Add(enemy);
         }
+        foreach(EnemyGroup group in enemyGroupList)
+        {
+            EnemySelectButton enemy = Instantiate(enemyButtonPrefab, enemyParent);
+            enemy.Initialise(group, EnterCombatWithEnemies);
+            spawnedButtons.Add(enemy);
+        }
     }
 
     private void EnterCombatWithEnemy(EnemyEntityData enemyData)
+    {
+        FightingManager.Instance.OpenFightingForEnemy(enemyData);
+        Close();
+    }
+    private void EnterCombatWithEnemies(List<EnemyEntityData> enemyData)
     {
         FightingManager.Instance.OpenFightingForEnemy(enemyData);
         Close();

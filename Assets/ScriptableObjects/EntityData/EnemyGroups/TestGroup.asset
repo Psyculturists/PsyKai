@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f246be57ab16b49b743d11d53b6750, type: 3}
+  m_Name: TestGroup
+  m_EditorClassIdentifier: 
+  groupName: Squad
+  enemies:
+  - {fileID: 11400000, guid: 9d0d741eb2db1804aa86b32a768ee6f2, type: 2}
+  - {fileID: 11400000, guid: 18c7afabb90f93a46b2da3cdca016b61, type: 2}
+  suggestedLevel: 3

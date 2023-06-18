@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 public class CombatEntity : MonoBehaviour
@@ -9,13 +10,17 @@ public class CombatEntity : MonoBehaviour
     private TMPro.TextMeshProUGUI nameField;
     [SerializeField]
     private HealthBar healthBar;
-
+    [SerializeField]
+    private Button selectionButton;
+    [SerializeField]
+    private Image indicator;
     [SerializeField]
     private StatusEffectDurationDictionary currentStatusEffects;
     [SerializeField]
     private StatData baseStats;
     [SerializeField]
     private StatData currentStats;
+
 
     
 
@@ -32,7 +37,9 @@ public class CombatEntity : MonoBehaviour
     protected CombatEntityData entityData;
     public int ExpForDefeat => entityData.ExpOnDefeat;
 
-    public void Initialise(CombatEntityData data, StatData baseStatData, List<Skill> baseSkills)
+    private System.Action<CombatEntity> OnEntitySelected;
+
+    public void Initialise(CombatEntityData data, StatData baseStatData, List<Skill> baseSkills, System.Action<CombatEntity> OnSelected = null)
     {
         entityData = data;
         baseStats = baseStatData;
@@ -44,6 +51,19 @@ public class CombatEntity : MonoBehaviour
         }
         health = baseStats.StartingHealth;
         healthBar.UpdateBar((int)Health, baseStats.Health);
+
+        OnEntitySelected = OnSelected;
+        selectionButton?.onClick.AddListener(OnSelfSelected);
+    }
+
+    private void OnSelfSelected()
+    {
+        OnEntitySelected?.Invoke(this);
+    }
+
+    public void ToggleIndicator(bool on)
+    {
+        indicator.gameObject.SetActive(on);
     }
 
     public void SetName(string name)
@@ -206,5 +226,10 @@ public class CombatEntity : MonoBehaviour
             return null;
         }
         return Skills[UnityEngine.Random.Range(0, skills.Count)];
+    }
+
+    private void OnDestroy()
+    {
+        OnEntitySelected = null;
     }
 }

@@ -14,7 +14,9 @@ public class EnemySelectButton : MonoBehaviour
     private Button button;
 
     private EnemyEntityData data;
+    private EnemyGroup groupData;
     private System.Action<EnemyEntityData> clickEffect;
+    private System.Action<List<EnemyEntityData>> groupClickEffect;
 
     public void Initialise(EnemyEntityData enemyData, System.Action<EnemyEntityData> click)
     {
@@ -22,6 +24,14 @@ public class EnemySelectButton : MonoBehaviour
         enemyNameText.text = data.EntityName;
         enemyLevelText.text = "Lvl. " + data.SuggestedLevel.ToString();
         clickEffect = click;
+        button.onClick.AddListener(ClickAction);
+    }
+    public void Initialise(EnemyGroup enemyData, System.Action<List<EnemyEntityData>> click)
+    {
+        groupData = enemyData;
+        enemyNameText.text = groupData.GroupName;
+        enemyLevelText.text = "Lvl. " + groupData.SuggestedLevel.ToString();
+        groupClickEffect = click;
         button.onClick.AddListener(ClickAction);
     }
 
@@ -33,5 +43,6 @@ public class EnemySelectButton : MonoBehaviour
     private void ClickAction()
     {
         clickEffect?.Invoke(data);
+        groupClickEffect?.Invoke(groupData.Enemies);
     }
 }
