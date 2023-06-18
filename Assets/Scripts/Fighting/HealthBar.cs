@@ -22,6 +22,7 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateBar(int current, int max)
     {
+        if (this == null) return;
         healthOverlay.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ((float)current / (float)max) * originalWidth);
         healthText.text = current + " / " + max;
     }

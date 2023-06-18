@@ -62,13 +62,6 @@ public class FightingManager : MonoBehaviour
         root.gameObject.SetActive(false);
     }
 
-    public void OpenFightingScene()
-    {
-        root.gameObject.SetActive(true);
-        Initialise();
-        EstablishCombatScene();
-    }
-
     public void OpenFightingForEnemy(EnemyEntityData data)
     {
         root.gameObject.SetActive(true);
@@ -76,11 +69,37 @@ public class FightingManager : MonoBehaviour
         EstablishCombatScene(data);
     }
 
+    public void OpenFightingForEnemy(List<EnemyEntityData> enemyData)
+    {
+        root.gameObject.SetActive(true);
+        Initialise();
+        EstablishCombatScene(enemyData);
+    }
+
     private void EstablishCombatScene(EnemyEntityData data = null)
     {
         Cleanup();
         SpawnPlayer();
         SpawnEnemy(data == null ? tempEnemyData : data);
+        turnCounter = 1;
+        HideRadial();
+    }
+
+    private void EstablishCombatScene(List<EnemyEntityData> data = null)
+    {
+        Cleanup();
+        SpawnPlayer();
+        if(data == null)
+        {
+            SpawnEnemy(tempEnemyData);
+        }
+        else
+        {
+            foreach(EnemyEntityData d in data)
+            {
+                SpawnEnemy(d);
+            }
+        }
         turnCounter = 1;
         HideRadial();
     }
@@ -105,7 +124,6 @@ public class FightingManager : MonoBehaviour
     private void TotalRestart()
     {
         Cleanup();
-        EstablishCombatScene();
     }
 
 
@@ -201,6 +219,7 @@ public class FightingManager : MonoBehaviour
         if(playerVictory)
         {
             spawnedEnemy.OnDefeat();
+            GetCombatRewards();
         }
         else
         {

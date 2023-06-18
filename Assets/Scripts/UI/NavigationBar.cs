@@ -88,11 +88,7 @@ public class NavigationBar : MonoBehaviour
     {
         OpenScreen(farmingScreen);
     }
-    public void OpenFighting()
-    {
-        OpenScreen(fightingScreen.gameObject);
-        fightingScreen.OpenFightingScene();
-    }
+
     public void OpenFightingForEnemy(EnemyEntityData data)
     {
         OpenScreen(fightingScreen.gameObject);
