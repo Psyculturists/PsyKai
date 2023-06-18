@@ -90,11 +90,7 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
         }
 
-        runningState = 0f;
-        if (isGrounded)
-        {
-            runningState = Input.GetAxis("Run");
-        }
+        runningState = Input.GetAxis("Run");
 
     }
 
