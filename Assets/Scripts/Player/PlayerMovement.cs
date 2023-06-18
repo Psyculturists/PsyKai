@@ -11,7 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundObjects;
     public float checkRadius;
     public int maxJumpCount;
-    public Animator animator; 
+    public Animator animator;
+    public float addedRunSpeed;
 
     private Rigidbody2D rb;
     private bool facingRight = true;
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private bool isGrounded;
     private int jumpCount;
+    private float runningState;
 
     // Awake is called after all objects are initialized, called in a random order
     private void Awake()
@@ -58,7 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(moveDirection * (moveSpeed + addedRunSpeed * runningState), rb.velocity.y);
+
         if (isJumping)
         {
             rb.AddForce(new Vector2(0f, jumpForce));
@@ -86,6 +89,13 @@ public class PlayerMovement : MonoBehaviour
         {
             isJumping = true;
         }
+
+        runningState = 0f;
+        if (isGrounded)
+        {
+            runningState = Input.GetAxis("Run");
+        }
+
     }
 
     private void flipCharacter()
