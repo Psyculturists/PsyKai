@@ -59,10 +59,7 @@ public class Skill : ScriptableObject
         float percentDamageAmpFromStatDiff = (float)usersAttack / (float)targetDefence;
 
         int damageDealt = Mathf.RoundToInt(Mathf.Clamp(preMitigated * percentDamageAmpFromStatDiff, 0, Mathf.Infinity));
-        if(heals)
-        {
-            damageDealt = -damageDealt;
-        }
+        
         Debug.Log(damageDealt);
         return damageDealt;
     }

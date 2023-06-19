@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55eed32370bcd214393848af82ff7af1, type: 3}
-  m_Name: SimpleAttackSkill 1
+  m_Name: SimpleSelfDamage
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  skillName: How does that make you feel?
+  skillName: Self Depreciation
   levelRequired: 1
-  damage: 5
-  heals: 1
+  damage: 3
+  heals: 0
   attackScaling: 50
   orderOfSkill: 0
-  isSelfTargeted: 0
+  isSelfTargeted: 1
   hasDelayedResolution: 0
   statusEffect: {fileID: 0}
   applicationData:
     chance: 0
     turnDuration: 0
-  description: smol hit
+  description: 
