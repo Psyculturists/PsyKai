@@ -80,6 +80,13 @@ public class PlayerMovement : MonoBehaviour
         {
             flipCharacter();
         }
+
+        if (isJumping)
+        {
+            animator.SetTrigger("Jump");
+        }
+
+        animator.SetBool("isOnAir", !isGrounded);
     }
 
     private void ProcessInput()
@@ -92,6 +99,10 @@ public class PlayerMovement : MonoBehaviour
 
         runningState = Input.GetAxis("Run");
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            animator.SetTrigger("SaysNo");
+        }
     }
 
     private void flipCharacter()
