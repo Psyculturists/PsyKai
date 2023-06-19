@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cab0986c6ccbc4744b91feda132ee796
+guid: e02167749e216dd41af4fbc028438e65
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,11 +119,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EdIdle_0
+      name: EdJump_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3bb1429f1d8cb244296f17e2ba5593f0
-      internalID: 429274311
+      spriteID: 3124e539a6cfc414f92b1ccd9e025ccf
+      internalID: -657869881
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EdIdle_1
+      name: EdJump_1
       rect:
         serializedVersion: 2
         x: 16
@@ -158,8 +171,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9e87e2d6e8eee842b298aa05e30dd57
-      internalID: 209933256
+      spriteID: 552f986321727b749ab4fcbf7d587aa1
+      internalID: 1705368481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdJump_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b106a6f78bc28fb4e93d0ad3e01b3c26
+      internalID: -591150737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EdJump_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f28553564dc3243a31d6bae71dc542
+      internalID: 1286559477
       vertices: []
       indices: 
       edges: []
@@ -175,8 +230,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      EdIdle_0: 429274311
-      EdIdle_1: 209933256
+      EdJump_0: -657869881
+      EdJump_1: 1705368481
+      EdJump_2: -591150737
+      EdJump_3: 1286559477
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
