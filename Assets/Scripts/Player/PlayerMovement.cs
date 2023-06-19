@@ -38,6 +38,11 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetFloat("Speed", Mathf.Abs(moveDirection));
         
+        if (!isGrounded)
+        {
+            animator.SetFloat("Speed", 0f);
+        }
+        
         // Get inputs
         ProcessInput();
 
@@ -81,11 +86,6 @@ public class PlayerMovement : MonoBehaviour
             flipCharacter();
         }
 
-        if (isJumping)
-        {
-            animator.SetTrigger("Jump");
-        }
-
         animator.SetBool("isOnAir", !isGrounded);
     }
 
@@ -95,6 +95,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && jumpCount > 0)
         {
             isJumping = true;
+            animator.SetTrigger("Jump");
         }
 
         runningState = Input.GetAxis("Run");
