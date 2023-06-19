@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Penguino_idle
+  m_Name: Penguino_walk
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,15 +21,21 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 778204883, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
-    - time: 0.25
       value: {fileID: 134635322, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
+    - time: 0.1
+      value: {fileID: -1880645302, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
+    - time: 0.2
+      value: {fileID: -42923650, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
+    - time: 0.3
+      value: {fileID: -1749135892, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
+    - time: 0.4
+      value: {fileID: 2007607582, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 4
+  m_SampleRate: 10
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -46,8 +52,11 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 778204883, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
     - {fileID: 134635322, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
+    - {fileID: -1880645302, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
+    - {fileID: -42923650, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
+    - {fileID: -1749135892, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
+    - {fileID: 2007607582, guid: 8baa0bde3a51f2748b9f74f204676c59, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
