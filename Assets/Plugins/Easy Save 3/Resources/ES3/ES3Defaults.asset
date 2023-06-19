@@ -32,7 +32,9 @@ MonoBehaviour:
     - Assembly-CSharp-firstpass
     - Assembly-CSharp
     - PsdPlugin
+    - Ink-Libraries
     - PPv2URPConverters
+    - InkEditor
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

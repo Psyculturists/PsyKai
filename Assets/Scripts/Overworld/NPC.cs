@@ -3,22 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Ink.Runtime;
 
 public class NPC : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public TMP_Text dialogueText;
-    public string[] dialogue;
     public float wordSpeed;
     public GameObject continuePanel;
     public EnemyEntityData enemy;
+    // Set this file to your compiled json asset
+    public TextAsset inkAsset;
+    // The ink story that we're wrapping
+    Story _inkStory;
+    public GameObject choicesPanel;
 
+    private string dialogue;
     private bool playerIsClose;
-    private int index;
 
     void Start()
     {
         dialogueText.text = "";
+    }
+
+    void Awake()
+    {
+        _inkStory = new Story(inkAsset.text);
     }
 
     // Update is called once per frame
@@ -29,17 +39,18 @@ public class NPC : MonoBehaviour
             if (!dialoguePanel.activeInHierarchy )
             {
                 dialoguePanel.SetActive(true);
+                dialogue = _inkStory.Continue();
                 StartCoroutine(Typing());
             }
         }
 
-        if (dialogueText.text == dialogue[index])
+        if (dialogueText.text == dialogue)
         {
             continuePanel.SetActive(true);
 
             if (Input.GetButtonDown("Interact"))
             {
-                if (index < dialogue.Length - 1)
+                if (_inkStory.canContinue)
                 {
                     NextLine();
                 }
@@ -65,13 +76,12 @@ public class NPC : MonoBehaviour
     public void ZeroText()
     {
         dialogueText.text = "";
-        index = 0;
         dialoguePanel.SetActive(false);
     }
 
     IEnumerator Typing()
     {
-        foreach (char letter in dialogue[index].ToCharArray())
+        foreach (char letter in dialogue.ToCharArray())
         {
             dialogueText.text += letter;
             yield return new WaitForSeconds(wordSpeed);
@@ -82,10 +92,10 @@ public class NPC : MonoBehaviour
     {
         continuePanel.SetActive(false);
 
-        if (index < dialogue.Length - 1)
+        if (_inkStory.canContinue)
         {
-            index++;
             dialogueText.text = "";
+            dialogue = _inkStory.Continue();
             StartCoroutine(Typing());
         }
         else
