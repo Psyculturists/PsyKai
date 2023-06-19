@@ -11,6 +11,8 @@ public class PlayerDataManager : MonoBehaviour
     [SerializeField]
     private PlayerUnlockableSkills unlockableSkills;
     public List<Skill> UnlockableSkills => unlockableSkills.PlayerUnlockables;
+    [SerializeField]
+    private bool doLoad = true;
 
     private int playerLevel = 1;
     public int PlayerLevel => playerLevel;
@@ -102,6 +104,7 @@ public class PlayerDataManager : MonoBehaviour
 
     private void SaveLevelState()
     {
+        if (!doLoad) return;
         ES3.Save(LEVEL_SAVE_KEY, PlayerLevel);
         ES3.Save(EXP_SAVE_KEY, currentExperience);
         ES3.Save(SKILLS_SAVE_KEY, CurrentSkillLoadout);
@@ -109,6 +112,7 @@ public class PlayerDataManager : MonoBehaviour
 
     private void LoadLevelState()
     {
+        if (!doLoad) return;
         playerLevel = ES3.Load(LEVEL_SAVE_KEY, playerLevel);
         currentExperience = ES3.Load(EXP_SAVE_KEY, currentExperience);
         currentSkillLoadout = ES3.Load(SKILLS_SAVE_KEY, currentSkillLoadout);

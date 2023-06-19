@@ -1136,7 +1136,7 @@ RectTransform:
   - {fileID: 7765015337652648931}
   - {fileID: 4391399515530724542}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1540,6 +1540,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d0d741eb2db1804aa86b32a768ee6f2, type: 2}
   - {fileID: 11400000, guid: 18c7afabb90f93a46b2da3cdca016b61, type: 2}
   - {fileID: 11400000, guid: 6194f7d9baaaf4344b537a7afb5ffb86, type: 2}
+  - {fileID: 11400000, guid: 661c565bb3e835e40838b28639033314, type: 2}
   enemyGroupList:
   - {fileID: 11400000, guid: 22b6d521891803946b9898803b0d41aa, type: 2}
 --- !u!1 &4872034647441923011

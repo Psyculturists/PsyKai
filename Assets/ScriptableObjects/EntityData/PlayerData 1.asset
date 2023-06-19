@@ -20,8 +20,8 @@ MonoBehaviour:
     speed: 2
   skills:
   - {fileID: 11400000, guid: fffe6f7cec959384588f4e9e5d224052, type: 2}
-  - {fileID: 11400000, guid: d5e574738930f634fa2c531797028e2e, type: 2}
   - {fileID: 11400000, guid: 7fef91de571bf664fac502d4ee6708d9, type: 2}
+  - {fileID: 11400000, guid: a5f311c9e08436644928a2208683ed2f, type: 2}
   - {fileID: 11400000, guid: e2a49758e8b61bf4a93853fc9f174ded, type: 2}
   expOnDefeat: 0
   entityPrefab: {fileID: 3641707893314771118, guid: a0d0e2584f5f74148929ac593a58993b,

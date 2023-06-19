@@ -14,11 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   skillName: Heal
+  levelRequired: 1
   damage: 2
+  heals: 1
   attackScaling: 50
   orderOfSkill: 0
   isSelfTargeted: 1
+  hasDelayedResolution: 0
   statusEffect: {fileID: 0}
   applicationData:
     chance: 0
     turnDuration: 0
+  description: 

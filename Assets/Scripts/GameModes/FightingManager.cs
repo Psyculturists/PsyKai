@@ -22,6 +22,8 @@ public class FightingManager : MonoBehaviour
     private RadialSkillMenu radialMenu;
     [SerializeField]
     private Button openRadialButton;
+    [SerializeField]
+    private BattleLog battleLog;
 
     private PlayerEntity spawnedPlayer;
     private Enemy targetedEnemy;
@@ -113,6 +115,7 @@ public class FightingManager : MonoBehaviour
 
     private void Cleanup()
     {
+        battleLog.Clear();
         if(spawnedPlayer)
         {
             Destroy(spawnedPlayer.gameObject);
@@ -184,6 +187,7 @@ public class FightingManager : MonoBehaviour
         {
             if (enemy.IsAlive)
             {
+                Debug.Log("enemy using skill...");
                 enemy.CastSkill(enemy.GetRandomSkill(), spawnedPlayer);
             }
             else if (enemy.HasBeenSaved)
@@ -255,6 +259,11 @@ public class FightingManager : MonoBehaviour
     private void OnSkillCanceled()
     {
         HideRadial();
+    }
+
+    public void LogBattleMessage(CombatEntity user, CombatEntity target, Skill skill, int damage)
+    {
+        battleLog.CreateLog(user, target, skill, damage);
     }
 
     private void EndCombat(bool playerVictory)
