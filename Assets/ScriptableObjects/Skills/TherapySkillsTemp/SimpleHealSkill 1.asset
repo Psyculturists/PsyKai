@@ -16,7 +16,7 @@ MonoBehaviour:
   skillName: Take Notes
   levelRequired: 1
   damage: 2
-  heals: 0
+  heals: 1
   attackScaling: 50
   orderOfSkill: 0
   isSelfTargeted: 1

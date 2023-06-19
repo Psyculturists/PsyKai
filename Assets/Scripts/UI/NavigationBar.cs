@@ -114,7 +114,7 @@ public class NavigationBar : MonoBehaviour
 
     public void LaunchMap()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("SideScroller", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("SideScroller", UnityEngine.SceneManagement.LoadSceneMode.Single);
         HideAllMenus();
     }
 }

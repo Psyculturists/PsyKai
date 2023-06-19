@@ -17,6 +17,7 @@ public class LevelExpDisplay : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayerDataManager.ExpGainOccured += UpdateFields;
         if(PlayerDataManager.Instance == null)
         {
             waitUpdate = true;
@@ -26,6 +27,12 @@ public class LevelExpDisplay : MonoBehaviour
         {
             UpdateFields();
         }
+
+    }
+
+    private void OnDisable()
+    {
+        PlayerDataManager.ExpGainOccured -= UpdateFields;
     }
 
     private void UpdateFields()
