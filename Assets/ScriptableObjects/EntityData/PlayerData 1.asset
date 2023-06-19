@@ -28,7 +28,7 @@ MonoBehaviour:
     type: 3}
   finalStats:
     health: 350
-    startingHealth: 0
+    startingHealth: 350
     attack: 80
     defence: 60
     speed: 70
