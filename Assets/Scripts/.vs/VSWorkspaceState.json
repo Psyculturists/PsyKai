@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Player"
+    "\\Fighting",
+    "\\GameModes",
+    "\\UI",
+    "\\UI\\EnemySelect"
   ],
+  "SelectedNode": "\\UI\\EnemySelect\\EnemySelectButton.cs",
   "PreviewInSolutionExplorer": false
 }
