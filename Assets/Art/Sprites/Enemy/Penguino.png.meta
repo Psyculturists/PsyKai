@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a3d86ec0aef7aa64d88ac9b3f825c359
+guid: 8baa0bde3a51f2748b9f74f204676c59
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,7 +107,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: EdNo_0
+      name: Penguino_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2794e48ca1ba7bc4cae5d6c0a65d153a
-      internalID: -1022861722
+      spriteID: de62e68bb433f814189846e1ccaa695b
+      internalID: 778204883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EdNo_1
+      name: Penguino_1
       rect:
         serializedVersion: 2
         x: 16
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d150b56d297d51a4bb5ab8a695bfc6e1
-      internalID: -1133709539
+      spriteID: c0d0b00855c709b4397220cd4d4ffe26
+      internalID: 134635322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EdNo_2
+      name: Penguino_2
       rect:
         serializedVersion: 2
         x: 32
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6c1acdd336e39d499645df6296b0ff9
-      internalID: 311984039
+      spriteID: c2fc81e5404ef6c4780be18b91d7a28c
+      internalID: -1880645302
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: EdNo_3
+      name: Penguino_3
       rect:
         serializedVersion: 2
         x: 48
@@ -200,8 +200,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d69096767fc20b4486772a2b3477acb
-      internalID: 1345890772
+      spriteID: 7695a99f3b97a2640b81678268e03658
+      internalID: -42923650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Penguino_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ee2643239a499a4a8f85053856b47b1
+      internalID: -1749135892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Penguino_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7556c7a3ad8490c4080dc7967cece7a2
+      internalID: 2007607582
       vertices: []
       indices: 
       edges: []
@@ -217,10 +259,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      EdNo_0: -1022861722
-      EdNo_1: -1133709539
-      EdNo_2: 311984039
-      EdNo_3: 1345890772
+      Penguino_0: 778204883
+      Penguino_1: 134635322
+      Penguino_2: -1880645302
+      Penguino_3: -42923650
+      Penguino_4: -1749135892
+      Penguino_5: 2007607582
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
