@@ -292,7 +292,7 @@ public class FightingManager : MonoBehaviour
         }
         else
         {
-            PopupManager.Instance.ShowInfoPopup("Oh Dear :(", "It seems you lost! Try making some food to help out next time! (pending extended game loop)", () => NavigationBar.Instance.OpenHub());
+            PopupManager.Instance.ShowInfoPopup("Oh Dear :(", "It seems you lost! Try making some food to help out next time! (pending extended game loop)", () => CloseFightingScene());
         }
         TotalRestart();
         //stuff
