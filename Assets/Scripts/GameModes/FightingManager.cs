@@ -24,6 +24,10 @@ public class FightingManager : MonoBehaviour
     private Button openRadialButton;
     [SerializeField]
     private BattleLog battleLog;
+    [SerializeField]
+    private BattleDialogueManager dialogueManager;
+    [SerializeField]
+    private float turnTimer = 7.5f;
 
     private PlayerEntity spawnedPlayer;
     private Enemy targetedEnemy;
@@ -223,6 +227,18 @@ public class FightingManager : MonoBehaviour
         else
         {
             TriggerNextTurn();
+        }
+    }
+
+    public IEnumerator RunEntityTurn(CombatEntity entity, CombatEntity target, Skill skill)
+    {
+        float timeRemaining = turnTimer;
+        while(timeRemaining > 0)
+        {
+
+
+            timeRemaining -= Time.deltaTime;
+            yield return null;
         }
     }
 

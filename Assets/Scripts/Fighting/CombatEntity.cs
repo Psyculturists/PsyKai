@@ -15,11 +15,15 @@ public class CombatEntity : MonoBehaviour
     [SerializeField]
     private Image indicator;
     [SerializeField]
+    private Animation animator;
+    [SerializeField]
     private StatusEffectDurationDictionary currentStatusEffects;
     [SerializeField]
     private StatData baseStats;
     [SerializeField]
     private StatData currentStats;
+    [SerializeField]
+    private AnimationClip castAnimation;
 
 
     
@@ -75,12 +79,18 @@ public class CombatEntity : MonoBehaviour
         nameField.text = name;
     }
 
-    public void CastSkill(Skill skill, CombatEntity target)
+    public async void CastSkill(Skill skill, CombatEntity target)
     {
+        if (animator)
+        {
+            animator.clip = castAnimation;
+            animator.Play();
+        }
         Debug.Log(this.nameField.text + " used " + skill.SkillName);
         int damageResult = 0;
         if (skill.IsSelfTargeted)
         {
+            //animator?.Play(skill.AnimationToUse);
             if (skill.Heals)
             {
                 damageResult = Heal(skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0));

@@ -47,6 +47,9 @@ public class Skill : ScriptableObject
     [SerializeField, Multiline]
     private string description;
     public string Description => description;
+    [SerializeField]
+    private string dialogueOnCast;
+    public string DialogueOnCast => dialogueOnCast;
 
     public System.Action<bool> OnResolution;
 
