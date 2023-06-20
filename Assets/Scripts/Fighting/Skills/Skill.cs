@@ -8,15 +8,11 @@ public class Skill : ScriptableObject
     [SerializeField]
     private Sprite icon;
     public Sprite Icon => icon;
-    [SerializeField]
-    private string skillName;
-    public string SkillName { get => skillName; set => skillName = value; }
-    [SerializeField]
-    private int damage;
-    public int Damage => damage;
-    [SerializeField]
-    private bool heals = false;
-    public bool Heals => heals;
+    public string skillName;
+    [TextArea]
+    public string description;
+    public int damage;
+    public bool heals = false;
     [SerializeField]
     private float attackScaling = 50.0f;
     public float AttackScaling => attackScaling;
@@ -24,10 +20,7 @@ public class Skill : ScriptableObject
     [SerializeField]
     private int orderOfSkill = 0;
     public int OrderOfSkill => orderOfSkill;
-
-    [SerializeField]
-    private bool isSelfTargeted = false;
-    public bool IsSelfTargeted => isSelfTargeted;
+    public bool isSelfTargeted;
     [SerializeField]
     private bool hasDelayedResolution = false;
     public bool HasDelayedResolution => hasDelayedResolution;

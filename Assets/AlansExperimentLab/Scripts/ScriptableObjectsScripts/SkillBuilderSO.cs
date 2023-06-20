@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "Tools/SkillBuilder", fileName = "SkillBuilder")]
 public class SkillBuilderSO : ScriptableObject
@@ -7,7 +7,12 @@ public class SkillBuilderSO : ScriptableObject
     public string skillName = "New Skill";
     public string description;
 
-    public string damage;
+    public int damage;
 
-    public bool isHealer;
+    public bool isHeal;
+    public bool isSelfTarget;
+
+    public List<Skill> createdSkills = new List<Skill>();
+
+    public Skill selectedSkill;
 }

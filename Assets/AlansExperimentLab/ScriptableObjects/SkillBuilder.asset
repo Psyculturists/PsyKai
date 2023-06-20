@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85bb11a4120d724aa47e7bab2464c44, type: 3}
   m_Name: SkillBuilder
   m_EditorClassIdentifier: 
-  skillName: New Skill
+  skillName: New skill
   description: 
-  damage: 
-  isHealer: 0
+  damage: 0
+  isHeal: 0
+  isSelfTarget: 0
+  createdSkills: []
+  selectedSkill: {fileID: 11400000, guid: 1af83b4811b5b9c46b6df6246453e2e1, type: 2}

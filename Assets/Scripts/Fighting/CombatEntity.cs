@@ -52,7 +52,7 @@ public class CombatEntity : MonoBehaviour
 
     public void CastSkill(Skill skill, CombatEntity target)
     {
-        if (skill.IsSelfTargeted)
+        if (skill.isSelfTargeted)
         {
             Heal(skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0));
             if (skill.HasStatusEffect)
