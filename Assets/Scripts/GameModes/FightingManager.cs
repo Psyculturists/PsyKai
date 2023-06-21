@@ -101,6 +101,7 @@ public class FightingManager : MonoBehaviour
 
         currentTurnEntity = spawnedPlayer;
         SetupEntitySnapshot();
+        SetCombatUILock();
     }
 
     private void EstablishCombatScene(List<EnemyEntityData> data = null)
@@ -128,10 +129,13 @@ public class FightingManager : MonoBehaviour
         currentFightExp = 0;
         rewardsToGet.Clear();
         SetupEntitySnapshot();
+        SetCombatUILock();
     }
 
     private void Cleanup()
     {
+        currentTurnEntity = null;
+        entityTurnIndexer = 0;
         battleLog.Clear();
         if(spawnedPlayer)
         {
