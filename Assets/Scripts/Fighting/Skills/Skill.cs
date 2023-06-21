@@ -8,29 +8,20 @@ public class Skill : ScriptableObject
     [SerializeField]
     private Sprite icon;
     public Sprite Icon => icon;
-    [SerializeField]
-    private string skillName;
-    public string SkillName => skillName;
+    public string skillName;
+    [TextArea]
+    public string description;
     [SerializeField]
     private int levelRequired = 1;
     public int LevelRequired => levelRequired;
-    [SerializeField]
-    private int damage;
-    public int Damage => damage;
-    [SerializeField]
-    private bool heals = false;
-    public bool Heals => heals;
-    [SerializeField]
-    private float attackScaling = 50.0f;
-    public float AttackScaling => attackScaling;
+    public int damage;
+    public bool heals;
+    public float attackScaling = 100;
 
     [SerializeField]
     private int orderOfSkill = 0;
     public int OrderOfSkill => orderOfSkill;
-
-    [SerializeField]
-    private bool isSelfTargeted = false;
-    public bool IsSelfTargeted => isSelfTargeted;
+    public bool isSelfTargeted;
     [SerializeField]
     private bool hasDelayedResolution = false;
     public bool HasDelayedResolution => hasDelayedResolution;
@@ -44,22 +35,19 @@ public class Skill : ScriptableObject
     private StatusEffectApplicationData applicationData;
     public StatusEffectApplicationData ApplicationData => applicationData;
 
-    [SerializeField, Multiline]
-    private string description;
-    public string Description => description;
 
     public System.Action<bool> OnResolution;
 
 
     public int TotalDamageAfterScaling(int usersAttack, int targetDefence)
     {
-        float attackRatio = AttackScaling / 100.0f;
+        float attackRatio = attackScaling / 100.0f;
         float preMitigated = attackRatio * (float)damage;
         if (targetDefence <= 0) targetDefence = 1;
         float percentDamageAmpFromStatDiff = (float)usersAttack / (float)targetDefence;
 
         int damageDealt = Mathf.RoundToInt(Mathf.Clamp(preMitigated * percentDamageAmpFromStatDiff, 0, Mathf.Infinity));
-        
+
         Debug.Log(damageDealt);
         return damageDealt;
     }

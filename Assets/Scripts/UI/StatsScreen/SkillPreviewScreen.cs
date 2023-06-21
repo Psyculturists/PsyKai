@@ -30,7 +30,7 @@ public class SkillPreviewScreen : MonoBehaviour
 
     private void UpdateElements()
     {
-        nameText.text = selectedSkill == null ? "None" : selectedSkill.SkillName;
-        descriptionText.text = selectedSkill == null ? "Select a skill" : selectedSkill.Description;
+        nameText.text = selectedSkill == null ? "None" : selectedSkill.skillName;
+        descriptionText.text = selectedSkill == null ? "Select a skill" : selectedSkill.description;
     }
 }

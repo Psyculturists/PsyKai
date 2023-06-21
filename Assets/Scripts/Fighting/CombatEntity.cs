@@ -77,11 +77,11 @@ public class CombatEntity : MonoBehaviour
 
     public void CastSkill(Skill skill, CombatEntity target)
     {
-        Debug.Log(this.nameField.text + " used " + skill.SkillName);
+        Debug.Log(this.nameField.text + " used " + skill.skillName);
         int damageResult = 0;
-        if (skill.IsSelfTargeted)
+        if (skill.isSelfTargeted)
         {
-            if (skill.Heals)
+            if (skill.heals)
             {
                 damageResult = Heal(skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0));
             }
@@ -174,7 +174,7 @@ public class CombatEntity : MonoBehaviour
 
     public int AttackTarget(CombatEntity target, Skill skill)
     {
-        if (skill.Heals)
+        if (skill.heals)
         {
             return target.Heal(this, skill);
         }

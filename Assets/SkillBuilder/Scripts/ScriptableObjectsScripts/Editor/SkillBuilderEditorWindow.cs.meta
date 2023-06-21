@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5737369c90181e24693ef53237a06931
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - skillBuilder: {fileID: 11400000, guid: 22e245f3d811f704680387e3084f7659, type: 2}
+  - m_UXML: {fileID: 9197481963319205126, guid: fed17aea0e6a2864689024b4c6998d4f,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

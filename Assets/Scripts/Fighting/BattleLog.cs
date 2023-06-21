@@ -12,9 +12,9 @@ public class BattleLog : MonoBehaviour
     public void CreateLog(CombatEntity user, CombatEntity target, Skill skill, int damage)
     {
         string output = "";
-        string damageColoured = (skill.Heals && damage >= 0 ? "<color=green>" : (damage != 0 ? "<color=red>" : "<color=grey>")) + damage + "</color>";
+        string damageColoured = (skill.heals && damage >= 0 ? "<color=green>" : (damage != 0 ? "<color=red>" : "<color=grey>")) + damage + "</color>";
         string damageString = " ( " + damageColoured + " )";
-        output += user.EntityName + " used " + skill.SkillName + " on " + (skill.IsSelfTargeted ? "themselves" : target.EntityName) + damageString;
+        output += user.EntityName + " used " + skill.skillName + " on " + (skill.isSelfTargeted ? "themselves" : target.EntityName) + damageString;
 
         BattleLogMessage message = Instantiate(logPrefab, logParent);
         message.Initialise(output);
