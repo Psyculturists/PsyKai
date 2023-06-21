@@ -21,8 +21,9 @@ MonoBehaviour:
   orderOfSkill: 0
   isSelfTargeted: 0
   hasDelayedResolution: 0
-  statusEffect: {fileID: 11400000, guid: c41e018d753689b4db6cbb57b18d2302, type: 2}
+  statusEffect: {fileID: 0}
   applicationData:
     chance: 100
     turnDuration: 5
   description: debuff enemy
+  dialogueOnCast: That's rough buddy. Want to talk about it?

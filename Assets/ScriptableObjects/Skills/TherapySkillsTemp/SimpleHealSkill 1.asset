@@ -26,3 +26,4 @@ MonoBehaviour:
     chance: 0
     turnDuration: 0
   description: heal brrrr
+  dialogueOnCast: I'm more prepared than ever!

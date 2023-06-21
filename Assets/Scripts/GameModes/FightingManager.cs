@@ -25,14 +25,18 @@ public class FightingManager : MonoBehaviour
     [SerializeField]
     private BattleLog battleLog;
     [SerializeField]
-    private BattleDialogueManager dialogueManager;
-    [SerializeField]
     private float turnTimer = 7.5f;
 
     private PlayerEntity spawnedPlayer;
     private Enemy targetedEnemy;
+    private CombatEntity currentTurnEntity;
     //currently spawn locations might bug out if respawning enemies or summons
     private List<Enemy> spawnedEnemies = new List<Enemy>();
+
+    // snapshot enemies on start of each round, to handle turn cycling - and track turn index
+    private List<CombatEntity> startTurnEntitySnapshot = new List<CombatEntity>();
+    private int entityTurnIndexer = 0;
+
     [SerializeField]
     private List<Transform> enemySpawnPoints = new List<Transform>();
 
@@ -94,27 +98,36 @@ public class FightingManager : MonoBehaviour
         HideRadial();
         currentFightExp = 0;
         rewardsToGet.Clear();
+
+        currentTurnEntity = spawnedPlayer;
+        SetupEntitySnapshot();
     }
 
     private void EstablishCombatScene(List<EnemyEntityData> data = null)
     {
         Cleanup();
         SpawnPlayer();
+        // commenting out speed verification because summons would mess with it probably...
+        //CombatEntity highestSpeedEntity = spawnedPlayer;
         if(data == null)
         {
-            SpawnEnemy(tempEnemyData);
+            CombatEntity enemy = SpawnEnemy(tempEnemyData);
+            //highestSpeedEntity = enemy.Speed > highestSpeedEntity.Speed ? enemy : highestSpeedEntity;
         }
         else
         {
             foreach(EnemyEntityData d in data)
             {
-                SpawnEnemy(d);
+                CombatEntity enemy = SpawnEnemy(d);
+                //highestSpeedEntity = enemy.Speed > highestSpeedEntity.Speed ? enemy : highestSpeedEntity;
             }
         }
+        currentTurnEntity = spawnedPlayer; //should set to highest speed entity later, when figured out.
         turnCounter = 1;
         HideRadial();
         currentFightExp = 0;
         rewardsToGet.Clear();
+        SetupEntitySnapshot();
     }
 
     private void Cleanup()
@@ -143,20 +156,23 @@ public class FightingManager : MonoBehaviour
         // use current level stats, rather than base stats.
         spawnedPlayer.Initialise(playerData, playerData.StatsForCurrentLevel, PlayerDataManager.Instance.CurrentSkillLoadout);
         spawnedPlayer.SetName("Psychologist-kun");
+        spawnedPlayer.SetEndTurnAction(ProceedNextTurn);
     }
     
-    private void SpawnEnemy(EnemyEntityData enemyData)
+    private CombatEntity SpawnEnemy(EnemyEntityData enemyData)
     {
         Transform parentTransform = enemySpawnPoints[spawnedEnemies.Count];
 
         Enemy spawnedEnemy = Instantiate(enemyData.EntityPrefab, parentTransform);
         spawnedEnemy.Initialise(enemyData, enemyData.BaseStats, enemyData.Skills, SelectTarget);
         spawnedEnemy.SetName(enemyData.EntityName);
+        spawnedEnemy.SetEndTurnAction(ProceedNextTurn);
         spawnedEnemies.Add(spawnedEnemy);
         if(spawnedEnemies.Count == 1 && targetedEnemy == null)
         {
             SelectTarget(spawnedEnemies[0]);
         }
+        return spawnedEnemy;
     }
 
     public void ShowRadial()
@@ -172,27 +188,26 @@ public class FightingManager : MonoBehaviour
         openRadialButton.gameObject.SetActive(true);
     }
 
-    private void OnSkillUsed(Skill skill)
+    private void SetCombatUILock()
     {
-        skill.OnResolution += OnSkillFinishedFiring;
-        spawnedPlayer.CastSkill(skill, targetedEnemy);
-        HideRadial();
-        
+        openRadialButton.interactable = currentTurnEntity == spawnedPlayer && !currentTurnEntity.HavingTurn;
     }
 
-    private void OnSkillFinishedFiring(bool notCanceled = true)
+    private void OnSkillUsed(Skill skill)
     {
-        if(!notCanceled)
-        {
-            return;
-        }
+        currentTurnEntity.StartEntityTurn(skill, targetedEnemy);
+        HideRadial();
+        SetCombatUILock();
+    }
+
+    private void OnAnyTurnEnded()
+    {
         List<Enemy> enemiesSavedThisRound = new List<Enemy>();
         foreach (Enemy enemy in spawnedEnemies)
         {
             if (enemy.IsAlive)
             {
-                Debug.Log("enemy using skill...");
-                enemy.CastSkill(enemy.GetRandomSkill(), spawnedPlayer);
+                //enemy alive
             }
             else if (enemy.HasBeenSaved)
             {
@@ -215,31 +230,50 @@ public class FightingManager : MonoBehaviour
         {
             EndCombat(true);
         }
-        else if(targetedEnemy == null || targetedEnemy.HasBeenSaved)
-        {
-            SelectTarget(spawnedEnemies.Find(e => !e.HasBeenSaved && e.IsAlive));
-        }
 
         if (!spawnedPlayer.IsAlive)
         {
             EndCombat(false);
         }
-        else
-        {
-            TriggerNextTurn();
-        }
     }
 
-    public IEnumerator RunEntityTurn(CombatEntity entity, CombatEntity target, Skill skill)
+    private void ProceedNextTurn()
     {
-        float timeRemaining = turnTimer;
-        while(timeRemaining > 0)
+        OnAnyTurnEnded();
+
+        //stuff
+        CombatEntity EntityAtIndex()
         {
+            return startTurnEntitySnapshot[entityTurnIndexer];
+        };
+        if(startTurnEntitySnapshot.Count > 0)
+        {
+            if (entityTurnIndexer == startTurnEntitySnapshot.Count - 1) entityTurnIndexer = 0;
+            else entityTurnIndexer++;
 
+            int indexesChecked = 0;
+            
+            while (EntityAtIndex()?.IsAlive == false && indexesChecked < (startTurnEntitySnapshot.Count))
+            {
+                indexesChecked++;
+                if (entityTurnIndexer == startTurnEntitySnapshot.Count - 1) entityTurnIndexer = 0;
+                else entityTurnIndexer++;
+            }
 
-            timeRemaining -= Time.deltaTime;
-            yield return null;
+            currentTurnEntity = EntityAtIndex();
         }
+
+        if(currentTurnEntity == null)
+        {
+            // log an error and make us lose to motivate us to fix it.
+            Debug.LogError("Never found suitable turn entity. What happened?");
+            EndCombat(false);
+        }
+        else if(currentTurnEntity != spawnedPlayer)
+        {
+            currentTurnEntity.StartEntityTurn(currentTurnEntity.GetRandomSkill(), spawnedPlayer);
+        }
+        SetCombatUILock();
     }
 
     private void OnEnemySaved(Enemy enemy)
@@ -266,9 +300,25 @@ public class FightingManager : MonoBehaviour
         Debug.Log("Next turn triggered");
         turnCounter++;
         spawnedPlayer?.ReduceStatusTimers(1);
+
+        // create unit snapshot
         foreach (Enemy enemy in spawnedEnemies)
         {
             enemy?.ReduceStatusTimers(1);
+        }
+        SetupEntitySnapshot();
+    }
+
+    private void SetupEntitySnapshot()
+    {
+        startTurnEntitySnapshot.Clear();
+        startTurnEntitySnapshot.Add(spawnedPlayer as CombatEntity);
+        foreach (Enemy enemy in spawnedEnemies)
+        {
+            if (enemy.IsAlive)
+            {
+                startTurnEntitySnapshot.Add(enemy as CombatEntity);
+            }
         }
     }
 
