@@ -1,10 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Fighting",
-    "\\GameModes",
-    "\\UI",
-    "\\UI\\EnemySelect"
+    "\\Dialogue",
+    "\\Overworld",
+    "\\Player"
   ],
+  "SelectedNode": "\\Dialogue\\DialogueManager.cs",
   "PreviewInSolutionExplorer": false
 }
