@@ -36,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+            return;
+
         animator.SetFloat("Speed", Mathf.Abs(moveDirection));
         
         if (!isGrounded)
@@ -52,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+            return;
+
         // Check if grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
         if (isGrounded)
