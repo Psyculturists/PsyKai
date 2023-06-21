@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Dialogue",
+    "\\Overworld",
     "\\Player"
   ],
+  "SelectedNode": "\\Dialogue\\DialogueManager.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -35,6 +35,9 @@ public class Skill : ScriptableObject
     private StatusEffectApplicationData applicationData;
     public StatusEffectApplicationData ApplicationData => applicationData;
 
+    [SerializeField]
+    private string dialogueOnCast;
+    public string DialogueOnCast => dialogueOnCast;
 
     public System.Action<bool> OnResolution;
 

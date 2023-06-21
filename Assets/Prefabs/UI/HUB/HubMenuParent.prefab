@@ -1543,6 +1543,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 661c565bb3e835e40838b28639033314, type: 2}
   enemyGroupList:
   - {fileID: 11400000, guid: 22b6d521891803946b9898803b0d41aa, type: 2}
+  - {fileID: 11400000, guid: 1d7eaefcdbd5f2d4d96652aee6f746ac, type: 2}
 --- !u!1 &4872034647441923011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,6 +1554,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7913436031900182439}
   - component: {fileID: 2868584163012311594}
+  - component: {fileID: 548738798644630110}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -1606,6 +1608,20 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &548738798644630110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4872034647441923011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &4900682325122521167
 GameObject:
   m_ObjectHideFlags: 0

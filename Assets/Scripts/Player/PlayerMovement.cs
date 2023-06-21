@@ -36,7 +36,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+            return;
+
         animator.SetFloat("Speed", Mathf.Abs(moveDirection));
+        
+        if (!isGrounded)
+        {
+            animator.SetFloat("Speed", 0f);
+        }
         
         // Get inputs
         ProcessInput();
@@ -47,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (DialogueManager.GetInstance().dialogueIsPlaying)
+            return;
+
         // Check if grounded
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundObjects);
         if (isGrounded)
@@ -80,6 +91,8 @@ public class PlayerMovement : MonoBehaviour
         {
             flipCharacter();
         }
+
+        animator.SetBool("isOnAir", !isGrounded);
     }
 
     private void ProcessInput()
@@ -88,10 +101,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && jumpCount > 0)
         {
             isJumping = true;
+            animator.SetTrigger("Jump");
         }
 
         runningState = Input.GetAxis("Run");
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            animator.SetTrigger("SaysNo");
+        }
     }
 
     private void flipCharacter()

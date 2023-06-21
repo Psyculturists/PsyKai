@@ -13,9 +13,13 @@ public class PlayerDataManager : MonoBehaviour
     public List<Skill> UnlockableSkills => unlockableSkills.PlayerUnlockables;
     [SerializeField]
     private bool doLoad = true;
+    [SerializeField]
+    private bool overridePlayerLevel = false;
+    [SerializeField]
+    private int PlayerLevelForOverride = 1;
 
     private int playerLevel = 1;
-    public int PlayerLevel => playerLevel;
+    public int PlayerLevel => overridePlayerLevel ? PlayerLevelForOverride : playerLevel;
     private int currentExperience;
     public int CurrentExperience => currentExperience;
 

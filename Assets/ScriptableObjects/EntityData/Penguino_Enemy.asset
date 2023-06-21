@@ -25,4 +25,4 @@ MonoBehaviour:
   entityName: Penguino
   entityPrefab: {fileID: 7593913830570287294, guid: c995d1ee6b8018c48a399cbac3cef607,
     type: 3}
-  suggestedLevel: 4
+  suggestedLevel: 5
