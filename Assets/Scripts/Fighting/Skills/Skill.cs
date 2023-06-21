@@ -8,11 +8,18 @@ public class Skill : ScriptableObject
     [SerializeField]
     private Sprite icon;
     public Sprite Icon => icon;
-    public string skillName;
-    [TextArea]
-    public string description;
-    public int damage;
-    public bool heals = false;
+    [SerializeField]
+    private string skillName;
+    public string SkillName => skillName;
+    [SerializeField]
+    private int levelRequired = 1;
+    public int LevelRequired => levelRequired;
+    [SerializeField]
+    private int damage;
+    public int Damage => damage;
+    [SerializeField]
+    private bool heals = false;
+    public bool Heals => heals;
     [SerializeField]
     private float attackScaling = 50.0f;
     public float AttackScaling => attackScaling;
@@ -20,7 +27,10 @@ public class Skill : ScriptableObject
     [SerializeField]
     private int orderOfSkill = 0;
     public int OrderOfSkill => orderOfSkill;
-    public bool isSelfTargeted;
+
+    [SerializeField]
+    private bool isSelfTargeted = false;
+    public bool IsSelfTargeted => isSelfTargeted;
     [SerializeField]
     private bool hasDelayedResolution = false;
     public bool HasDelayedResolution => hasDelayedResolution;
@@ -34,6 +44,10 @@ public class Skill : ScriptableObject
     private StatusEffectApplicationData applicationData;
     public StatusEffectApplicationData ApplicationData => applicationData;
 
+    [SerializeField, Multiline]
+    private string description;
+    public string Description => description;
+
     public System.Action<bool> OnResolution;
 
 
@@ -45,10 +59,7 @@ public class Skill : ScriptableObject
         float percentDamageAmpFromStatDiff = (float)usersAttack / (float)targetDefence;
 
         int damageDealt = Mathf.RoundToInt(Mathf.Clamp(preMitigated * percentDamageAmpFromStatDiff, 0, Mathf.Infinity));
-        if(heals)
-        {
-            damageDealt = -damageDealt;
-        }
+        
         Debug.Log(damageDealt);
         return damageDealt;
     }
