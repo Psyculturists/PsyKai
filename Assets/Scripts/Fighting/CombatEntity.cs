@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System.Linq;
 
 public class CombatEntity : MonoBehaviour
@@ -10,17 +9,13 @@ public class CombatEntity : MonoBehaviour
     private TMPro.TextMeshProUGUI nameField;
     [SerializeField]
     private HealthBar healthBar;
-    [SerializeField]
-    private Button selectionButton;
-    [SerializeField]
-    private Image indicator;
+
     [SerializeField]
     private StatusEffectDurationDictionary currentStatusEffects;
     [SerializeField]
     private StatData baseStats;
     [SerializeField]
     private StatData currentStats;
-
 
     
 
@@ -35,14 +30,8 @@ public class CombatEntity : MonoBehaviour
     public List<Skill> Skills => skills;
 
     protected CombatEntityData entityData;
-    public int ExpForDefeat => entityData.ExpOnDefeat;
 
-    private string entityName;
-    public string EntityName => entityName;
-
-    private System.Action<CombatEntity> OnEntitySelected;
-
-    public void Initialise(CombatEntityData data, StatData baseStatData, List<Skill> baseSkills, System.Action<CombatEntity> OnSelected = null)
+    public void Initialise(CombatEntityData data, StatData baseStatData, List<Skill> baseSkills)
     {
         entityData = data;
         baseStats = baseStatData;
@@ -54,41 +43,18 @@ public class CombatEntity : MonoBehaviour
         }
         health = baseStats.StartingHealth;
         healthBar.UpdateBar((int)Health, baseStats.Health);
-
-        OnEntitySelected = OnSelected;
-        selectionButton?.onClick.AddListener(OnSelfSelected);
-    }
-
-    private void OnSelfSelected()
-    {
-        OnEntitySelected?.Invoke(this);
-    }
-
-    public void ToggleIndicator(bool on)
-    {
-        indicator.gameObject.SetActive(on);
     }
 
     public void SetName(string name)
     {
-        entityName = name;
         nameField.text = name;
     }
 
     public void CastSkill(Skill skill, CombatEntity target)
     {
-        Debug.Log(this.nameField.text + " used " + skill.SkillName);
-        int damageResult = 0;
-        if (skill.IsSelfTargeted)
+        if (skill.isSelfTargeted)
         {
-            if (skill.Heals)
-            {
-                damageResult = Heal(skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0));
-            }
-            else
-            {
-                damageResult = SelfDamage(skill);
-            }
+            Heal(skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0));
             if (skill.HasStatusEffect)
             {
                 TryApplyStatus(skill.Status, skill.ApplicationData);
@@ -96,7 +62,7 @@ public class CombatEntity : MonoBehaviour
         }
         else
         {
-            damageResult = AttackTarget(target, skill);
+            AttackTarget(target, skill);
             if(skill.HasStatusEffect)
             {
                 target.TryApplyStatus(skill.Status, skill.ApplicationData);
@@ -110,7 +76,6 @@ public class CombatEntity : MonoBehaviour
         {
             skill.ResolveSkill(true);
         }
-        FightingManager.Instance.LogBattleMessage(this, target, skill, damageResult);
     }
 
     private StatData PostStatusEffectStats()
@@ -172,41 +137,19 @@ public class CombatEntity : MonoBehaviour
 
     }
 
-    public int AttackTarget(CombatEntity target, Skill skill)
+    public void AttackTarget(CombatEntity target, Skill skill)
     {
-        if (skill.Heals)
-        {
-            return target.Heal(this, skill);
-        }
-        else
-        {
-            return target.TakeDamage(this, skill);
-        }
+        target.TakeDamage(this, skill);
     }
 
-    public int TakeDamage(CombatEntity attacker, Skill skill)
+    public void TakeDamage(CombatEntity attacker, Skill skill)
     {
         int damage = skill.TotalDamageAfterScaling(attacker.PostStatusEffectStats().Attack, PostStatusEffectStats().Defence);
         ModifyHealth(-damage);
-        return damage;
     }
-
-    public int Heal(CombatEntity attacker, Skill skill)
-    {
-        int damage = skill.TotalDamageAfterScaling(attacker.PostStatusEffectStats().Attack, PostStatusEffectStats().Defence);
-        ModifyHealth(damage);
-        return damage;
-    }
-    public int Heal(int amount)
+    public void Heal(int amount)
     {
         ModifyHealth(amount);
-        return amount;
-    }
-    public int SelfDamage(Skill skill)
-    {
-        int damage = skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0);
-        ModifyHealth(-damage);
-        return damage;
     }
 
     protected void ModifyHealth(int amount)
@@ -262,10 +205,5 @@ public class CombatEntity : MonoBehaviour
             return null;
         }
         return Skills[UnityEngine.Random.Range(0, skills.Count)];
-    }
-
-    private void OnDestroy()
-    {
-        OnEntitySelected = null;
     }
 }

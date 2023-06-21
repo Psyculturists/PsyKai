@@ -54,7 +54,7 @@ public class RadialSkillButton : MonoBehaviour
         if (loadedSkill)
         {
             skillImage.sprite = loadedSkill.Icon;
-            skillText.text = loadedSkill.SkillName;
+            skillText.text = loadedSkill.skillName;
         }
         else
         {

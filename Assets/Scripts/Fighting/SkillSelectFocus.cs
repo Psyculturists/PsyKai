@@ -37,7 +37,7 @@ public class SkillSelectFocus : MonoBehaviour
         if (selectedSkill)
         {
             iconImage.sprite = selectedSkill.Icon;
-            skillNameText.text = selectedSkill.SkillName;
+            skillNameText.text = selectedSkill.skillName;
         }
         else
         {
