@@ -139,7 +139,7 @@ PrefabInstance:
         type: 3}
       propertyPath: inkAsset
       value: 
-      objectReference: {fileID: 4900000, guid: 95a49d4452fe1aa4ab3ad41a3561fbce, type: 3}
+      objectReference: {fileID: 4900000, guid: acf9e22e4e8a3484aa1e3a4189dc9018, type: 3}
     - target: {fileID: 7239625731986217583, guid: 3fb051cebabd1bb45ac8b63991a292be,
         type: 3}
       propertyPath: m_IsActive
