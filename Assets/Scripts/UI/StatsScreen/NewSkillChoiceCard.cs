@@ -20,7 +20,7 @@ public class NewSkillChoiceCard : MonoBehaviour
     public void Initialise(Skill skill, System.Action<NewSkillChoiceCard> onClick)
     {
         housedSkill = skill;
-        skillText.text = housedSkill.SkillName;
+        skillText.text = housedSkill.skillName;
         clickAction = onClick;
         button.onClick.AddListener(ClickAction);
     }

@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   skillName: Big Attack
+  levelRequired: 1
   damage: 5
+  heals: 0
   attackScaling: 100
   orderOfSkill: 0
   isSelfTargeted: 0
+  hasDelayedResolution: 0
   statusEffect: {fileID: 0}
   applicationData:
     chance: 0
     turnDuration: 0
+  description: 
+  dialogueOnCast: You can't stop me, Ed!

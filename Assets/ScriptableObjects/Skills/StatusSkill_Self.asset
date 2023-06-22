@@ -14,11 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   skillName: Buff
+  levelRequired: 1
   damage: 0
+  heals: 0
   attackScaling: 50
   orderOfSkill: 0
   isSelfTargeted: 1
+  hasDelayedResolution: 0
   statusEffect: {fileID: 11400000, guid: f720734e174dce943b236b50774fbcae, type: 2}
   applicationData:
     chance: 100
     turnDuration: 5
+  description: 
+  dialogueOnCast: I can feel a breakthrough coming!

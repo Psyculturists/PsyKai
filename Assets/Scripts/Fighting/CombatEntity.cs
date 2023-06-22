@@ -15,17 +15,24 @@ public class CombatEntity : MonoBehaviour
     [SerializeField]
     private Image indicator;
     [SerializeField]
+    private Animator animator;
+    [SerializeField]
     private StatusEffectDurationDictionary currentStatusEffects;
     [SerializeField]
     private StatData baseStats;
     [SerializeField]
     private StatData currentStats;
+    [SerializeField]
+    private AnimationClip castAnimation;
+    [SerializeField]
+    private BattleEntityDialogue entityDialogue;
 
 
     
 
     private float health;
     public float Health => health;
+    public float Speed => currentStats.Speed;
 
     public virtual bool HasBeenSaved => Health >= currentStats.Health;
     public virtual bool HasBeenFailed => Health <= 0;
@@ -40,7 +47,16 @@ public class CombatEntity : MonoBehaviour
     private string entityName;
     public string EntityName => entityName;
 
+    private bool havingTurn = false;
+    public bool HavingTurn => havingTurn;
+    private bool hasCastThisTurn = false;
+    private bool hasAnimatedThisTurn = false;
+
     private System.Action<CombatEntity> OnEntitySelected;
+    private System.Action OnTurnFinished;
+
+    private Skill skillToUse;
+    private CombatEntity turnTarget;
 
     public void Initialise(CombatEntityData data, StatData baseStatData, List<Skill> baseSkills, System.Action<CombatEntity> OnSelected = null)
     {
@@ -59,6 +75,20 @@ public class CombatEntity : MonoBehaviour
         selectionButton?.onClick.AddListener(OnSelfSelected);
     }
 
+    public void SetEndTurnAction(System.Action endTurnAction)
+    {
+        OnTurnFinished = endTurnAction;
+    }
+
+    public void StartEntityTurn(Skill skill, CombatEntity target)
+    {
+        havingTurn = true;
+        hasAnimatedThisTurn = false;
+        hasCastThisTurn = false;
+        skillToUse = skill;
+        turnTarget = target;
+    }
+
     private void OnSelfSelected()
     {
         OnEntitySelected?.Invoke(this);
@@ -75,13 +105,14 @@ public class CombatEntity : MonoBehaviour
         nameField.text = name;
     }
 
-    public void CastSkill(Skill skill, CombatEntity target)
+    public async void CastSkill(Skill skill, CombatEntity target)
     {
-        Debug.Log(this.nameField.text + " used " + skill.SkillName);
+        Debug.Log(this.nameField.text + " used " + skill.skillName);
         int damageResult = 0;
-        if (skill.IsSelfTargeted)
+        if (skill.isSelfTargeted)
         {
-            if (skill.Heals)
+            //animator?.Play(skill.AnimationToUse);
+            if (skill.heals)
             {
                 damageResult = Heal(skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0));
             }
@@ -111,6 +142,7 @@ public class CombatEntity : MonoBehaviour
             skill.ResolveSkill(true);
         }
         FightingManager.Instance.LogBattleMessage(this, target, skill, damageResult);
+        entityDialogue.SpawnDialogue(skill.DialogueOnCast);
     }
 
     private StatData PostStatusEffectStats()
@@ -174,7 +206,7 @@ public class CombatEntity : MonoBehaviour
 
     public int AttackTarget(CombatEntity target, Skill skill)
     {
-        if (skill.Heals)
+        if (skill.heals)
         {
             return target.Heal(this, skill);
         }
@@ -264,8 +296,65 @@ public class CombatEntity : MonoBehaviour
         return Skills[UnityEngine.Random.Range(0, skills.Count)];
     }
 
+    // Set up actual animator bools later
+    private float PlayCastAnimation()
+    {
+        float animTime = 0.0f;
+        if (animator)
+        {
+            animator.SetBool("Jump", true);
+        }
+        if (entityData is PlayerEntityData)
+        {
+            animator.SetBool("Jump", true);
+        }
+        // grab next state length
+        AnimatorStateInfo? info = animator?.GetNextAnimatorStateInfo(0);
+        animTime = info?.length > 0.2f ? info.Value.length : 0.5f;
+        return animTime;
+    }
+
     private void OnDestroy()
     {
         OnEntitySelected = null;
+        OnTurnFinished = null;
+    }
+
+    float updateCycleWaitTime = 0.0f;
+    private void Update()
+    {
+        if(havingTurn)
+        {
+            if(!IsAlive)
+            {
+                //shouldn't be in combat
+                havingTurn = false;
+                OnTurnFinished?.Invoke();
+                return;
+            }
+
+            if (updateCycleWaitTime > 0.0f)
+            {
+                updateCycleWaitTime -= Time.deltaTime;
+                return;
+            }
+
+            if(!hasAnimatedThisTurn)
+            {
+                hasAnimatedThisTurn = true;
+                updateCycleWaitTime = PlayCastAnimation();
+                return;
+            }
+            else if(!hasCastThisTurn)
+            {
+                hasCastThisTurn = true;
+                CastSkill(skillToUse, turnTarget);
+                updateCycleWaitTime = 1.5f; // small buffer time for end of round
+                return;
+            }
+
+            havingTurn = false;
+            OnTurnFinished?.Invoke();
+        }
     }
 }

@@ -1,0 +1,45 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="project://database/Assets/SkillBuilder/UIBuilder/SkillBuilderEditor.uss?fileID=7433441132597879392&amp;guid=b3ee5683d6dbb4a42a9b623adb83e4a0&amp;type=3#SkillBuilderEditor" />
+    <ui:Label tabindex="-1" text="Skill Builder &amp; You &lt;3" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; font-size: 20px; -unity-font-style: bold;" />
+    <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
+        <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-shrink: 1; max-width: none; max-height: none; width: 30%;">
+            <ui:Button text="Create Skill" display-tooltip-when-elided="true" name="create-skill-btn" class="btn" style="background-color: rgb(36, 87, 129); padding-left: 8px; padding-right: 8px; padding-top: 4px; padding-bottom: 4px; -unity-font-style: bold; font-size: 13px;" />
+            <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgb(42, 42, 42); margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; flex-shrink: 1;">
+                <ui:Label tabindex="-1" text="Created Skills" display-tooltip-when-elided="true" style="align-self: center;" />
+                <ui:ListView focusable="true" name="created-skills-list" show-alternating-row-backgrounds="All" show-border="true" header-title="hjhj" show-add-remove-footer="false" show-bound-collection-size="false" style="margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="selected-skill-panel" class="section" style="flex-grow: 1; background-color: rgb(56, 56, 56); height: auto; width: 50%; min-height: auto; max-height: none; flex-shrink: 1; display: flex; visibility: visible;">
+            <ui:TextField picking-mode="Ignore" label="Skill Name" value="New Skill" name="skill-name-field" />
+            <ui:TextField picking-mode="Ignore" name="description-field" multiline="true" label="Description" class="section" style="height: 87px; flex-direction: column; background-color: rgba(0, 0, 0, 0); flex-wrap: wrap;" />
+            <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-shrink: 0;">
+                <ui:IntegerField label="Required Level" value="1" name="required-level-field" style="justify-content: center;" />
+                <ui:VisualElement class="section" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: column; align-self: flex-start; align-items: stretch; min-width: auto; max-width: none; width: 80%; justify-content: space-around; height: auto; min-height: auto; max-height: none; flex-wrap: nowrap; flex-basis: auto; flex-shrink: 0;">
+                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; align-self: stretch; align-items: center; flex-shrink: 0;">
+                        <ui:Label tabindex="-1" text="Can the Skill &lt;b&gt;affect&lt;/b&gt; the user?" display-tooltip-when-elided="true" />
+                        <ui:VisualElement name="switch-toggle" style="flex-shrink: 0;">
+                            <ui:Toggle name="self-target-toggle" value="false" focusable="true" class="toggle-switch" style="flex-direction: row-reverse;">
+                                <ui:VisualElement focusable="false" class="toggle-switch-knob toggle-switch" style="align-self: center; flex-direction: column; position: relative; width: 14px; height: 14px;" />
+                            </ui:Toggle>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; align-self: stretch; align-items: center; flex-shrink: 0;">
+                        <ui:Label tabindex="-1" text="Does the Skill &lt;b&gt;heals&lt;/b&gt;?" display-tooltip-when-elided="true" />
+                        <ui:VisualElement name="switch-toggle" style="flex-shrink: 0;">
+                            <ui:Toggle name="heal-toggle" value="false" focusable="true" class="toggle-switch" style="flex-direction: row-reverse;">
+                                <ui:VisualElement focusable="false" class="toggle-switch-knob toggle-switch" style="align-self: center; flex-direction: column; position: relative; width: 14px; height: 14px;" />
+                            </ui:Toggle>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); height: auto; max-height: none; flex-shrink: 0;">
+                    <ui:SliderInt picking-mode="Ignore" label="How much does it damage?" value="0" high-value="100" show-input-field="true" page-size="0" name="amount-slider" binding-path="damage" style="flex-direction: column;" />
+                    <ui:FloatField label="Set the Attack Scaling percentage " value="100" name="attack-scaling-field" style="flex-direction: row; align-items: stretch; justify-content: center; margin-top: 8px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: auto; max-height: none; flex-shrink: 1; align-items: flex-end; align-self: flex-end; justify-content: flex-end; flex-direction: column;">
+                <ui:Button text="Delete Skill" display-tooltip-when-elided="true" name="delete-skill-btn" class="btn" style="background-color: rgb(120, 32, 32); -unity-slice-left: 0; -unity-slice-top: 0; -unity-slice-right: 0; -unity-slice-bottom: 0; -unity-slice-scale: 1px; font-size: 13px; -unity-font-style: bold; color: rgb(255, 255, 255); padding-top: 4px; padding-bottom: 4px; padding-left: 8px; padding-right: 8px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
