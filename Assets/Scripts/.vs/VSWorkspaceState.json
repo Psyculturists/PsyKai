@@ -5,5 +5,6 @@
     "\\Overworld",
     "\\Player"
   ],
+  "SelectedNode": "\\Player\\PlayerMovement.cs",
   "PreviewInSolutionExplorer": false
 }

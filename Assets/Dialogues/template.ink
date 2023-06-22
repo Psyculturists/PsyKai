@@ -1,4 +1,4 @@
-#INCLUDE EnterFight()
+EXTERNAL EnterFight()
 // You can use "~ EnterFight()" to make the dialogue start a fight!
 
 -> START

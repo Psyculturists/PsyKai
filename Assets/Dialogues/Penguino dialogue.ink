@@ -6,13 +6,13 @@ EXTERNAL EnterFight()
 == START ==
 // You can start writing here!
 Hello friend!
-+ Talk.
++ [Talk.]
     -> TALK
-+ Fight.
++ [Fight.]
     Here we go!
     ~ EnterFight()
     -> END
-+ Leave.
++ [Leave.]
     Practice self care!
     -> END
 

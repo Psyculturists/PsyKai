@@ -37,15 +37,18 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (DialogueManager.GetInstance().dialogueIsPlaying)
+        {
+            animator.SetFloat("Speed", 0f); ;
             return;
+        }
 
         animator.SetFloat("Speed", Mathf.Abs(moveDirection));
         
         if (!isGrounded)
         {
             animator.SetFloat("Speed", 0f);
-        }
-        
+        }        
+
         // Get inputs
         ProcessInput();
 

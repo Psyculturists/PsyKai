@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Ink.Runtime;
 using UnityEngine.EventSystems;
+using Cinemachine;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -18,18 +19,22 @@ public class DialogueManager : MonoBehaviour
 
     public GameObject choicesPanel;
     public GameObject[] choices;
-    private TextMeshProUGUI[] choicesText;
 
+    public CinemachineVirtualCamera vcCamera;
     public GameObject continuePanel;
     public float wordSpeed;
     public bool dialogueIsPlaying { get; private set; }
+    public float dialogueCameraDistance; 
 
+    private TextMeshProUGUI[] choicesText;
     private NPCData talkerData;
     private string dialogue;
     private Story currentStory;
     private static DialogueManager instance;
     private bool canContinue;
+    private bool areChoices;
     private InkExternalFunctions inkExternalFunctions;
+    private float previousCameraDistance;
 
     private void Awake()
     {
@@ -68,9 +73,12 @@ public class DialogueManager : MonoBehaviour
         }
 
         canContinue = (dialogue == dialogueText.text);
-        continuePanel.SetActive(canContinue);
+        areChoices = (currentStory.currentChoices.Count > 0 && canContinue);
 
-        if (Input.GetButtonDown("Interact") && canContinue)
+        continuePanel.SetActive(canContinue);
+        choicesPanel.SetActive(areChoices);
+
+        if ((Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && canContinue && !areChoices)
         {
             ContinueStory();
         }
@@ -91,7 +99,26 @@ public class DialogueManager : MonoBehaviour
         talkerPortrait.sprite = talkerData.portrait;
         name.text = talkerData.name;
 
+        StartCoroutine(CenterCamera());
+        previousCameraDistance = vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
+        vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = dialogueCameraDistance;
+
         ContinueStory();
+    }
+
+    IEnumerator CenterCamera()
+    {
+        var composer = vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+        float deadZoneWidth = composer.m_DeadZoneWidth;
+        float deadZoneHeight = composer.m_DeadZoneHeight;
+
+        composer.m_DeadZoneWidth = 0f;
+        composer.m_DeadZoneHeight = 0f;
+
+        yield return new WaitForSeconds(1.25f);
+
+        composer.m_DeadZoneWidth = deadZoneWidth;
+        composer.m_DeadZoneHeight = deadZoneHeight;
     }
 
     public void EnterFight()
@@ -123,6 +150,8 @@ public class DialogueManager : MonoBehaviour
 
         inkExternalFunctions.Unbind(currentStory);
 
+        vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = previousCameraDistance;
+
         dialogueIsPlaying = false;
         dialogueText.text = "";
         dialogue = "";
@@ -138,7 +167,7 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text = "";
             DisplayChoices();
 
-            choicesPanel.SetActive(currentStory.currentChoices.Count > 0);
+            ;
 
             if (dialogue.Equals("") && !currentStory.canContinue)
             {
@@ -190,6 +219,6 @@ public class DialogueManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
-        currentStory.Continue();
+        ContinueStory();
     }
 }

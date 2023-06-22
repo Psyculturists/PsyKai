@@ -8,12 +8,10 @@ public class DialogueTrigger : MonoBehaviour
     public Vector3 offset;
     public TextAsset inkAsset;
 
-    private Camera cam;
     private bool playerIsClose;
 
     void Start()
     {
-        cam = Camera.main;
         interactionIcon.SetActive(false);
     }
 
