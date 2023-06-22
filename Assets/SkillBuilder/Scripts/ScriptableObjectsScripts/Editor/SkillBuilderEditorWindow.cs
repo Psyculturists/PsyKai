@@ -58,6 +58,7 @@ public class SkillBuilderEditorWindow : EditorWindow
 
 			var skillNameField = rootVisualElement.Q<TextField>("skill-name-field");
 			var descriptionField = rootVisualElement.Q<TextField>("description-field");
+			var requiredLevelField = rootVisualElement.Q<IntegerField>("required-level-field");
 			var amountSlider = rootVisualElement.Q<SliderInt>("amount-slider");
 			var attackScalingField = rootVisualElement.Q<FloatField>("attack-scaling-field");
 			var selfTargetToggle = rootVisualElement.Q<Toggle>("self-target-toggle");
@@ -73,6 +74,7 @@ public class SkillBuilderEditorWindow : EditorWindow
 			skillNameField.RegisterCallback<FocusOutEvent>(RenameSkillCallback);
 
 			descriptionField.BindProperty(selectedObject.FindProperty(nameof(selectedSkill.description)));
+			requiredLevelField.BindProperty(selectedObject.FindProperty(nameof(selectedSkill.levelRequired)));
 			amountSlider.BindProperty(selectedObject.FindProperty(nameof(selectedSkill.damage)));
 			attackScalingField.BindProperty(selectedObject.FindProperty(nameof(selectedSkill.attackScaling)));
 			selfTargetToggle.BindProperty(selectedObject.FindProperty(nameof(selectedSkill.isSelfTargeted)));
@@ -100,6 +102,7 @@ public class SkillBuilderEditorWindow : EditorWindow
 			var skill = CreateInstance<Skill>();
 			skill.name = skillBuilder.skillName;
 			skill.description = skillBuilder.description;
+			skill.levelRequired = skillBuilder.levelRequired;
 			skill.heals = skillBuilder.isHeal;
 			skill.damage = skillBuilder.damage;
 			skill.attackScaling = skillBuilder.attackScaling;

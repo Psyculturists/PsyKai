@@ -10,6 +10,8 @@ public class SkillBuilderSO : ScriptableObject
     public int damage;
     public float attackScaling = 100;
 
+    public int levelRequired = 1;
+
     public bool isHeal;
     public bool isSelfTarget;
 

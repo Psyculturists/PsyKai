@@ -11,9 +11,7 @@ public class Skill : ScriptableObject
     public string skillName;
     [TextArea]
     public string description;
-    [SerializeField]
-    private int levelRequired = 1;
-    public int LevelRequired => levelRequired;
+    public int levelRequired;
     public int damage;
     public bool heals;
     public float attackScaling = 100;

@@ -63,7 +63,7 @@ public class StatSkillScreen : MonoBehaviour
         if (spawnedNewSkillCards.Count > 0) return;
         foreach(Skill skill in PlayerDataManager.Instance.UnlockableSkills)
         {
-            if (skill.LevelRequired > PlayerDataManager.Instance.PlayerLevel) continue;
+            if (skill.levelRequired > PlayerDataManager.Instance.PlayerLevel) continue;
             NewSkillChoiceCard card = Instantiate(newSkillCardPrefab, newSkillParent);
             card.Initialise(skill, NewSkillCardSelected);
             spawnedNewSkillCards.Add(card);
