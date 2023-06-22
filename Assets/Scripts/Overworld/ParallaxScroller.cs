@@ -12,16 +12,24 @@ public class ParallaxScroller : MonoBehaviour
         [SerializeField]
         [Range(0, 1)]
         public float distance;
+
+        public float offset;
     }
 
     [SerializeField]
     private Camera mainCamera;
 
     [SerializeField]
-    private List<ParallaxLayer> parallaxLayers;
+    private ParallaxLayer[] parallaxLayers;
 
     void Start()
     {
+        for (int i = 0; i < parallaxLayers.Length; i++)
+        {
+            float cameraX = mainCamera.transform.position.x;
+
+            parallaxLayers[i].offset = cameraX - parallaxLayers[i].transform.position.x; 
+        }
     }
 
     void Update()
@@ -34,7 +42,7 @@ public class ParallaxScroller : MonoBehaviour
             {
                 Vector3 newPos = layer.transform.position;
 
-                newPos.x = cameraX * layer.distance;
+                newPos.x = cameraX * layer.distance - layer.offset;
 
                 layer.transform.position = newPos;
             }
