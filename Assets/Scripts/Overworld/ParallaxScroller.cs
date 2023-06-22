@@ -12,7 +12,7 @@ public class ParallaxScroller : MonoBehaviour
         [SerializeField]
         [Range(0, 1)]
         public float distance;
-
+        [HideInInspector]
         public float offset;
     }
 
