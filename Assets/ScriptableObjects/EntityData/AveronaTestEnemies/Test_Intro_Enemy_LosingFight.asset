@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02f25bdc636aef4fa7bf563c7579457, type: 3}
+  m_Name: Test_Intro_Enemy_LosingFight
+  m_EditorClassIdentifier: 
+  baseStats:
+    health: 50
+    startingHealth: 25
+    attack: 5
+    defence: 2
+    speed: 3
+  skills:
+  - {fileID: 11400000, guid: 018b1d67107b5d046aa5eb7f49a73dbc, type: 2}
+  expOnDefeat: 100
+  weaknesses: []
+  resistances: []
+  entityName: Newbie Stomper
+  entityPrefab: {fileID: 7593913830570287294, guid: c995d1ee6b8018c48a399cbac3cef607,
+    type: 3}
+  suggestedLevel: 1

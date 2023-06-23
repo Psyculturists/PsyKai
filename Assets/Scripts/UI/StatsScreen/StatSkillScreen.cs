@@ -53,7 +53,7 @@ public class StatSkillScreen : MonoBehaviour
         for(int i = 0; i < PlayerDataManager.Instance.MaxSkills; i++)
         {
             CurrentSkillCard card = Instantiate(skillCardPrefab, skillCardParent);
-            card.Init(i + 1, PlayerDataManager.Instance.CurrentSkillLoadout[i], SkillCardSelected);
+            card.Init(i + 1, PlayerDataManager.Instance.CurrentSkillLoadout.Count > i ? PlayerDataManager.Instance.CurrentSkillLoadout[i] : null, SkillCardSelected);
             spawnedSkillCards.Add(card);
         }
     }

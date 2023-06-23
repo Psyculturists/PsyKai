@@ -1537,10 +1537,14 @@ MonoBehaviour:
     type: 3}
   enemyParent: {fileID: 7913436031900182439}
   enemyList:
-  - {fileID: 11400000, guid: 9d0d741eb2db1804aa86b32a768ee6f2, type: 2}
-  - {fileID: 11400000, guid: 18c7afabb90f93a46b2da3cdca016b61, type: 2}
   - {fileID: 11400000, guid: 6194f7d9baaaf4344b537a7afb5ffb86, type: 2}
-  - {fileID: 11400000, guid: 661c565bb3e835e40838b28639033314, type: 2}
+  - {fileID: 11400000, guid: 8d80448719fe2bf43874031328d0511e, type: 2}
+  - {fileID: 11400000, guid: 6e54a8bf2231fe3408ffdcbbd982c184, type: 2}
+  - {fileID: 11400000, guid: f5c4a0e9f0c260344809a40aeeb65127, type: 2}
+  - {fileID: 11400000, guid: 4345b74a077ac6e47abd7e5973264f52, type: 2}
+  - {fileID: 11400000, guid: 0c1db86139482f3429f48e8f3551dd0f, type: 2}
+  - {fileID: 11400000, guid: 0e698b150de9e1a46a45a6e85e072e8a, type: 2}
+  - {fileID: 11400000, guid: 6b5c65e7e300a8e42985a2c44f8fdcbc, type: 2}
   enemyGroupList:
   - {fileID: 11400000, guid: 22b6d521891803946b9898803b0d41aa, type: 2}
   - {fileID: 11400000, guid: 1d7eaefcdbd5f2d4d96652aee6f746ac, type: 2}

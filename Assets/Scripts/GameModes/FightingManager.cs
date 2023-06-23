@@ -19,13 +19,13 @@ public class FightingManager : MonoBehaviour
     [SerializeField]
     private EnemyEntityData tempEnemyData;
     [SerializeField]
-    private RadialSkillMenu radialMenu;
-    [SerializeField]
-    private Button openRadialButton;
+    private BattleSkillMenu skillMenu;
     [SerializeField]
     private BattleLog battleLog;
     [SerializeField]
     private float turnTimer = 7.5f;
+    [SerializeField]
+    private Button fleeButton;
 
     private PlayerEntity spawnedPlayer;
     private Enemy targetedEnemy;
@@ -63,9 +63,9 @@ public class FightingManager : MonoBehaviour
     {
         if (!hasInitialised)
         {
-            openRadialButton.onClick.AddListener(ShowRadial);
-            radialMenu.SetFocusCallbacks(OnSkillUsed, OnSkillCanceled);
+            skillMenu.SetFocusCallbacks(OnSkillUsed, OnSkillCanceled);
             hasInitialised = true;
+            fleeButton.onClick.AddListener(CloseFightingScene);
         }
     }
 
@@ -95,7 +95,7 @@ public class FightingManager : MonoBehaviour
         SpawnPlayer();
         SpawnEnemy(data == null ? tempEnemyData : data);
         turnCounter = 1;
-        HideRadial();
+        DisallowSkills();
         currentFightExp = 0;
         rewardsToGet.Clear();
 
@@ -125,7 +125,7 @@ public class FightingManager : MonoBehaviour
         }
         currentTurnEntity = spawnedPlayer; //should set to highest speed entity later, when figured out.
         turnCounter = 1;
-        HideRadial();
+        DisallowSkills();
         currentFightExp = 0;
         rewardsToGet.Clear();
         SetupEntitySnapshot();
@@ -179,28 +179,33 @@ public class FightingManager : MonoBehaviour
         return spawnedEnemy;
     }
 
-    public void ShowRadial()
+    public void AllowSkills()
     {
-        radialMenu.gameObject.SetActive(true);
-        radialMenu.Show(spawnedPlayer.Skills);
-        openRadialButton.gameObject.SetActive(false);
+        skillMenu.ToggleInteractivity(true);
+        skillMenu.Show(spawnedPlayer.Skills, targetedEnemy);
     }
 
-    public void HideRadial()
+    public void DisallowSkills()
     {
-        radialMenu.gameObject.SetActive(false);
-        openRadialButton.gameObject.SetActive(true);
+        skillMenu.ToggleInteractivity(false);
     }
 
     private void SetCombatUILock()
     {
-        openRadialButton.interactable = currentTurnEntity == spawnedPlayer && !currentTurnEntity.HavingTurn;
+        if(currentTurnEntity == spawnedPlayer && !currentTurnEntity.HavingTurn)
+        {
+            AllowSkills();
+        }
+        else
+        {
+            DisallowSkills();
+        }
     }
 
     private void OnSkillUsed(Skill skill)
     {
+        if (skill == null) return;
         currentTurnEntity.StartEntityTurn(skill, targetedEnemy);
-        HideRadial();
         SetCombatUILock();
     }
 
@@ -328,7 +333,7 @@ public class FightingManager : MonoBehaviour
 
     private void OnSkillCanceled()
     {
-        HideRadial();
+        DisallowSkills();
     }
 
     public void LogBattleMessage(CombatEntity user, CombatEntity target, Skill skill, int damage)
@@ -389,6 +394,8 @@ public class FightingManager : MonoBehaviour
         {
             targetedEnemy.ToggleIndicator(true);
         }
+
+        AllowSkills();
     }
 
 

@@ -15,6 +15,5 @@ MonoBehaviour:
   groupName: Squad
   enemies:
   - {fileID: 11400000, guid: 6194f7d9baaaf4344b537a7afb5ffb86, type: 2}
-  - {fileID: 11400000, guid: 6194f7d9baaaf4344b537a7afb5ffb86, type: 2}
-  - {fileID: 11400000, guid: 6194f7d9baaaf4344b537a7afb5ffb86, type: 2}
+  - {fileID: 11400000, guid: 6b5c65e7e300a8e42985a2c44f8fdcbc, type: 2}
   suggestedLevel: 8
