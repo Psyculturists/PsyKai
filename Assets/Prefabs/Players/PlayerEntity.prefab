@@ -356,6 +356,7 @@ MonoBehaviour:
     speed: 0
   castAnimation: {fileID: 0}
   entityDialogue: {fileID: 7600433198669000970}
+  statBar: {fileID: 2332674677820286987}
 --- !u!1001 &456510110671122734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -620,6 +621,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bb9318100291fd4ebb546a8a7fc0f8a, type: 3}
+--- !u!114 &2332674677820286987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6621218974550373270, guid: 1bb9318100291fd4ebb546a8a7fc0f8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8916028649054952349}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392f7eaf9f91f7749b650ff27367095a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6351708055604667472 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2565314575627845581, guid: 1bb9318100291fd4ebb546a8a7fc0f8a,

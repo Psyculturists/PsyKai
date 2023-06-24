@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02f25bdc636aef4fa7bf563c7579457, type: 3}
+  m_Name: Test_Level_4_Enemy
+  m_EditorClassIdentifier: 
+  baseStats:
+    health: 60
+    startingHealth: 20
+    attack: 5
+    defence: 4
+    speed: 3
+  skills:
+  - {fileID: 11400000, guid: 489979aba5290dc4a800de5fe5956d84, type: 2}
+  - {fileID: 11400000, guid: e69fa517af216aa41b4b7503f80b379c, type: 2}
+  expOnDefeat: 10
+  weaknesses: []
+  resistances: []
+  entityName: Lvl 4 test
+  entityPrefab: {fileID: 7593913830570287294, guid: c995d1ee6b8018c48a399cbac3cef607,
+    type: 3}
+  suggestedLevel: 2
