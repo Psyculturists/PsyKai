@@ -1,47 +1,24 @@
+EXTERNAL EnterFight(EnemyName)
+
 -> START
 
 == START == 
-Hello # Penguino
-
-+ [A]
--> Two 
-
-== Two ==
-Two
-+ [A]
-    -> Three
-+ [B]
-    -> Three
+Hello, Ed! # Penguino
++ [Hello!]
+    -> Talk
++ [I want to fight!]
+    ~EnterFight("Penguino") 
     
-== Three ==
-tree
-+ [A]
- -> four
-+ [B]
- -> four
-+ [C]
- -> four
+    Nice!
+    Nice!
+    Yep!
+    mhm!
+    
+    -> END
++ [Bye]
+    -> END
 
-== four
-four
-+ [A]
- -> five
-+ [B]
- -> five
-+ [C]
--> five
-+ [D]
--> five
-
-== five
-five
-+ [A]
- -> END
-+ [B]
- -> END
-+ [C]
- -> END
-+ [D]
- -> END
-+ [E]
- -> END
+== Talk ==
+Hello, Señor Penguino. Are you practicing self care? # Ed
+Of course! # Penguino
+-> END

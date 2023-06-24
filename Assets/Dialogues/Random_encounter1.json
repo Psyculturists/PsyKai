@@ -1,0 +1,1 @@
+﻿{"inkVersion":20,"root":[[{"->":"START"},["done",{"#f":5,"#n":"g-0"}],null],"done",{"START":["^Don't look down on me just because I'm a penguin! ",{"#":"Penguino"},"\n","ev","str","^Penguino","/str",{"x()":"EnterFight","exArgs":1},"pop","/ev","\n","end",{"#f":1}],"#f":1}],"listDefs":{}}

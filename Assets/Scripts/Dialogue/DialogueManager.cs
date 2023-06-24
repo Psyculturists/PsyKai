@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     private bool areChoices;
     private InkExternalFunctions inkExternalFunctions;
     private float previousCameraDistance;
+    private bool isFighting;
 
     private void Awake()
     {
@@ -74,8 +75,9 @@ public class DialogueManager : MonoBehaviour
 
         continuePanel.SetActive(canContinue);
         choicesPanel.SetActive(areChoices);
+        bool isFighting = FightingManager.Instance.isFighting;
 
-        if (canContinue && !areChoices && (Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)))
+        if (canContinue && !areChoices && !isFighting && (Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)))
         {
             ContinueStory();
         }
@@ -91,7 +93,7 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
-        //inkExternalFunctions.Bind(currentStory);
+        inkExternalFunctions.Bind(currentStory);
 
         StartCoroutine(CenterCamera());
         previousCameraDistance = vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
@@ -127,17 +129,24 @@ public class DialogueManager : MonoBehaviour
         composer.m_DeadZoneHeight = deadZoneHeight;
     }
 
-    public void EnterFight()
+    public void EnterFight(string tag)
     {
-        EnemyEntityData enemy = talkerData.entityData;
+        EnemyEntityData enemy = new EnemyEntityData();
+        foreach (TagData item in tags)
+        {
+            if (tag == item.tag)
+            {
+                enemy = item.characterData.entityData;
+            }
+        }
         if (enemy != null)
         {
-            StartCoroutine(ExitDialogueMode());
+            Debug.Log("Fight!");
             FightingManager.Instance.OpenFightingForEnemy(enemy);
         }
         else
         {
-            Debug.LogWarning("A fight was triggered but no enemy data was passed.");
+            Debug.LogWarning("A fight was triggered but I couldnt find that character.");
         }
     }
 
@@ -154,7 +163,7 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        //inkExternalFunctions.Unbind(currentStory);
+        inkExternalFunctions.Unbind(currentStory);
 
         vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = previousCameraDistance;
 
