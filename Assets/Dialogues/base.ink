@@ -1,3 +1,4 @@
+EXTERNAL EnterFight(EnemyName)
 -> START
 
 == START ==

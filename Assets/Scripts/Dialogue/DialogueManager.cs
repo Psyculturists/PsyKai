@@ -34,6 +34,7 @@ public class DialogueManager : MonoBehaviour
     private bool areChoices;
     private InkExternalFunctions inkExternalFunctions;
     private float previousCameraDistance;
+    private bool isFighting;
 
     private void Awake()
     {
@@ -74,8 +75,9 @@ public class DialogueManager : MonoBehaviour
 
         continuePanel.SetActive(canContinue);
         choicesPanel.SetActive(areChoices);
+        bool isFighting = FightingManager.Instance.isFighting;
 
-        if (canContinue && !areChoices && (Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)))
+        if (canContinue && !areChoices && !isFighting && (Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)))
         {
             ContinueStory();
         }
@@ -139,7 +141,7 @@ public class DialogueManager : MonoBehaviour
         }
         if (enemy != null)
         {
-            StartCoroutine(ExitDialogueMode());
+            Debug.Log("Fight!");
             FightingManager.Instance.OpenFightingForEnemy(enemy);
         }
         else

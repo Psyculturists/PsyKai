@@ -6,6 +6,15 @@ EXTERNAL EnterFight(EnemyName)
 Hello, Ed! # Penguino
 + [Hello!]
     -> Talk
++ [I want to fight!]
+    ~EnterFight("Penguino") 
+    
+    Nice!
+    Nice!
+    Yep!
+    mhm!
+    
+    -> END
 + [Bye]
     -> END
 

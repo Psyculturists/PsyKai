@@ -46,6 +46,8 @@ public class FightingManager : MonoBehaviour
 
     private bool hasInitialised = false;
 
+    public bool isFighting => root.gameObject.activeInHierarchy;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -58,6 +60,8 @@ public class FightingManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+
 
     private void Initialise()
     {
