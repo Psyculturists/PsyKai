@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 2246238360238842565}
   - component: {fileID: 6808052405576148281}
   - component: {fileID: 5023280521137833584}
+  - component: {fileID: 5234225428657564598}
   m_Layer: 5
   m_Name: RadialSkillMenuBackground
   m_TagString: Untagged
@@ -298,6 +299,29 @@ MonoBehaviour:
   - {fileID: 5762352070807599583}
   - {fileID: 4892103616428018576}
   - {fileID: 877988079325952624}
+--- !u!223 &5234225428657564598
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605063889834005870}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 16
+  m_TargetDisplay: 0
 --- !u!1 &634168209638270489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1921,8 @@ MonoBehaviour:
   skillImage: {fileID: 4309485255028787486}
   skillText: {fileID: 2146330487277618167}
   button: {fileID: 7640233078561865737}
+  weaknessIndicator: {fileID: 0}
+  resistanceIndicator: {fileID: 0}
   loadedSkill: {fileID: 0}
 --- !u!1 &2144930598674096629
 GameObject:
@@ -2440,6 +2466,8 @@ MonoBehaviour:
   skillImage: {fileID: 142043299188887537}
   skillText: {fileID: 8415126835797399070}
   button: {fileID: 7804638106334172234}
+  weaknessIndicator: {fileID: 0}
+  resistanceIndicator: {fileID: 0}
   loadedSkill: {fileID: 0}
 --- !u!1 &3151134517117732521
 GameObject:
@@ -2892,6 +2920,8 @@ MonoBehaviour:
   skillImage: {fileID: 2076515849531204142}
   skillText: {fileID: 992719940539652542}
   button: {fileID: 2299667939083222209}
+  weaknessIndicator: {fileID: 0}
+  resistanceIndicator: {fileID: 0}
   loadedSkill: {fileID: 0}
 --- !u!1 &3598786301418541646
 GameObject:
@@ -3976,6 +4006,8 @@ MonoBehaviour:
   skillImage: {fileID: 6397416756999052639}
   skillText: {fileID: 8869001276333846292}
   button: {fileID: 2908196076524124791}
+  weaknessIndicator: {fileID: 0}
+  resistanceIndicator: {fileID: 0}
   loadedSkill: {fileID: 0}
 --- !u!1 &4497424214738520408
 GameObject:
@@ -6015,9 +6047,10 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: 52af76b9bd5743c419b64d09d505b6f6, type: 2}
   enemySpawn: {fileID: 5146473892081294413}
   tempEnemyData: {fileID: 11400000, guid: 18c7afabb90f93a46b2da3cdca016b61, type: 2}
-  radialMenu: {fileID: 5023280521137833584}
-  openRadialButton: {fileID: 8120920105986109539}
+  skillMenu: {fileID: 0}
   battleLog: {fileID: 8752508856342947200}
+  turnTimer: 7.5
+  fleeButton: {fileID: 0}
   enemySpawnPoints:
   - {fileID: 5146473892081294413}
   - {fileID: 2736087105163802069}
@@ -6439,6 +6472,8 @@ MonoBehaviour:
   skillImage: {fileID: 3520976314287458140}
   skillText: {fileID: 5675464535034575362}
   button: {fileID: 7259361882513362505}
+  weaknessIndicator: {fileID: 0}
+  resistanceIndicator: {fileID: 0}
   loadedSkill: {fileID: 0}
 --- !u!1 &7054777854148430780
 GameObject:
@@ -6580,6 +6615,8 @@ MonoBehaviour:
   skillImage: {fileID: 2688186701893588808}
   skillText: {fileID: 6815198478079839963}
   button: {fileID: 8155862883508641087}
+  weaknessIndicator: {fileID: 0}
+  resistanceIndicator: {fileID: 0}
   loadedSkill: {fileID: 0}
 --- !u!1 &7128959802992274436
 GameObject:
@@ -7444,6 +7481,8 @@ MonoBehaviour:
   skillImage: {fileID: 3981735912437200237}
   skillText: {fileID: 8497848017043312477}
   button: {fileID: 5099869770980921244}
+  weaknessIndicator: {fileID: 0}
+  resistanceIndicator: {fileID: 0}
   loadedSkill: {fileID: 0}
 --- !u!1 &8460508361443850381
 GameObject:
@@ -8277,6 +8316,8 @@ MonoBehaviour:
   skillImage: {fileID: 7343367614944229849}
   skillText: {fileID: 2128563410020468642}
   button: {fileID: 4119911666299497102}
+  weaknessIndicator: {fileID: 0}
+  resistanceIndicator: {fileID: 0}
   loadedSkill: {fileID: 0}
 --- !u!1 &9109066658749101266
 GameObject:
