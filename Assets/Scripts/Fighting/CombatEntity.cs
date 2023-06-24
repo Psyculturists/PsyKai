@@ -26,6 +26,8 @@ public class CombatEntity : MonoBehaviour
     private AnimationClip castAnimation;
     [SerializeField]
     private BattleEntityDialogue entityDialogue;
+    [SerializeField]
+    private StatusEffectBar statBar;
 
 
     
@@ -266,7 +268,8 @@ public class CombatEntity : MonoBehaviour
     {
         health += amount;
         health = Mathf.RoundToInt(Mathf.Clamp(health, 0, baseStats.Health));
-        healthBar.UpdateBar((int)health, baseStats.Health);
+        healthBar.UpdateBar((int)health, baseStats.Health, amount);
+        healthBar.AddChangeToQueue(amount, default);
     }
 
     public void TryApplyStatus(StatusEffect effect, StatusEffectApplicationData applicationData)
@@ -278,7 +281,14 @@ public class CombatEntity : MonoBehaviour
             return;
         }
         currentStatusEffects.TryGetValue(effect, out int turns);
-        currentStatusEffects[effect] = turns > applicationData.turnDuration ? turns : applicationData.turnDuration;
+        int newTurns = turns > applicationData.turnDuration ? turns : applicationData.turnDuration;
+        currentStatusEffects[effect] = newTurns;
+        statBar.AddStatusEffect(effect, newTurns);
+
+        foreach(StatEffectData data in effect.StatsImpacted)
+        {
+            healthBar.AddChangeToQueue(0, data);
+        }
     }
 
     public void ReduceStatusTimers(int toReduceBy)
@@ -292,6 +302,7 @@ public class CombatEntity : MonoBehaviour
                 currentStatusEffects.Remove(key);
             }
         }
+        statBar.UpdateAllStatusOnTurn();
     }
 
     private void ModifyStats(StatData data)
