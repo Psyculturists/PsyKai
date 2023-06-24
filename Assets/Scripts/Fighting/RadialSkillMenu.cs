@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RadialSkillMenu : MonoBehaviour
+public class BattleSkillMenu : MonoBehaviour
 {
     [SerializeField]
     private Transform radialParent;
     [SerializeField]
     private SkillSelectFocus focus;
     [SerializeField]
-    private List<RadialSkillButton> skillButtons;
+    private List<BattleSkillButton> skillButtons;
 
 
-    public void Show(List<Skill> skillList)
+    public void Show(List<Skill> skillList, CombatEntity target)
     {
         for(int i = 0; i < skillButtons.Count; i++)
         {
@@ -24,6 +24,15 @@ public class RadialSkillMenu : MonoBehaviour
             {
                 skillButtons[i].AssignSkill(null);
             }
+            skillButtons[i].UpdateResistanceIndication(target);
+        }
+    }
+
+    public void ToggleInteractivity(bool state)
+    {
+        for (int i = 0; i < skillButtons.Count; i++)
+        {
+            skillButtons[i].SetInteractive(state);
         }
     }
 
@@ -32,24 +41,20 @@ public class RadialSkillMenu : MonoBehaviour
         focus.AssignSelectedSkill(skill);
     }
 
-    private void SetCallbackOnRadials()
-    {
-        foreach(RadialSkillButton but in skillButtons)
-        {
-            but.SetCallback(FocusOnSkill);
-        }
-    }
-
     public void SetFocusCallbacks(System.Action<Skill> useCallback, System.Action cancelCallback)
     {
-        focus.UsedSkillCallback = useCallback;
-        focus.CancelCallback = cancelCallback;
+        for (int i = 0; i < skillButtons.Count; i++)
+        {
+            skillButtons[i].SetCallback(useCallback);
+        }
+        //focus.UsedSkillCallback = useCallback;
+        //focus.CancelCallback = cancelCallback;
     }
 
     // Start is called before the first frame update
     void Awake()
     {
-        SetCallbackOnRadials();
+        //SetCallbackOnRadials();
     }
 
     private void OnEnable()

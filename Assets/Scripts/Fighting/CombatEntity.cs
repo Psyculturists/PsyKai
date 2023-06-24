@@ -26,6 +26,8 @@ public class CombatEntity : MonoBehaviour
     private AnimationClip castAnimation;
     [SerializeField]
     private BattleEntityDialogue entityDialogue;
+    [SerializeField]
+    private StatusEffectBar statBar;
 
 
     
@@ -114,7 +116,7 @@ public class CombatEntity : MonoBehaviour
             //animator?.Play(skill.AnimationToUse);
             if (skill.heals)
             {
-                damageResult = Heal(skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0));
+                damageResult = Heal(skill, skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0));
             }
             else
             {
@@ -143,6 +145,23 @@ public class CombatEntity : MonoBehaviour
         }
         FightingManager.Instance.LogBattleMessage(this, target, skill, damageResult);
         entityDialogue.SpawnDialogue(skill.DialogueOnCast);
+    }
+
+    private void ApplySkillOutcome(Skill skill, int casterAttack)
+    {
+        int damageResult = 0;
+        if (skill.heals)
+        {
+            damageResult = Heal(skill, skill.TotalDamageAfterScaling(casterAttack, 0));
+        }
+        else
+        {
+            damageResult = SelfDamage(skill);
+        }
+        if (skill.HasStatusEffect)
+        {
+            TryApplyStatus(skill.Status, skill.ApplicationData);
+        }
     }
 
     private StatData PostStatusEffectStats()
@@ -219,6 +238,7 @@ public class CombatEntity : MonoBehaviour
     public int TakeDamage(CombatEntity attacker, Skill skill)
     {
         int damage = skill.TotalDamageAfterScaling(attacker.PostStatusEffectStats().Attack, PostStatusEffectStats().Defence);
+        damage = GetWeakResistValue(skill, damage);
         ModifyHealth(-damage);
         return damage;
     }
@@ -226,17 +246,20 @@ public class CombatEntity : MonoBehaviour
     public int Heal(CombatEntity attacker, Skill skill)
     {
         int damage = skill.TotalDamageAfterScaling(attacker.PostStatusEffectStats().Attack, PostStatusEffectStats().Defence);
+        damage = GetWeakResistValue(skill, damage);
         ModifyHealth(damage);
         return damage;
     }
-    public int Heal(int amount)
+    public int Heal(Skill skill, int amount)
     {
-        ModifyHealth(amount);
-        return amount;
+        int healVal = GetWeakResistValue(skill, amount);
+        ModifyHealth(healVal);
+        return healVal;
     }
     public int SelfDamage(Skill skill)
     {
         int damage = skill.TotalDamageAfterScaling(PostStatusEffectStats().Attack, 0);
+        damage = GetWeakResistValue(skill, damage);
         ModifyHealth(-damage);
         return damage;
     }
@@ -245,7 +268,8 @@ public class CombatEntity : MonoBehaviour
     {
         health += amount;
         health = Mathf.RoundToInt(Mathf.Clamp(health, 0, baseStats.Health));
-        healthBar.UpdateBar((int)health, baseStats.Health);
+        healthBar.UpdateBar((int)health, baseStats.Health, amount);
+        healthBar.AddChangeToQueue(amount, default);
     }
 
     public void TryApplyStatus(StatusEffect effect, StatusEffectApplicationData applicationData)
@@ -257,7 +281,14 @@ public class CombatEntity : MonoBehaviour
             return;
         }
         currentStatusEffects.TryGetValue(effect, out int turns);
-        currentStatusEffects[effect] = turns > applicationData.turnDuration ? turns : applicationData.turnDuration;
+        int newTurns = turns > applicationData.turnDuration ? turns : applicationData.turnDuration;
+        currentStatusEffects[effect] = newTurns;
+        statBar.AddStatusEffect(effect, newTurns);
+
+        foreach(StatEffectData data in effect.StatsImpacted)
+        {
+            healthBar.AddChangeToQueue(0, data);
+        }
     }
 
     public void ReduceStatusTimers(int toReduceBy)
@@ -271,12 +302,13 @@ public class CombatEntity : MonoBehaviour
                 currentStatusEffects.Remove(key);
             }
         }
+        statBar.UpdateAllStatusOnTurn();
     }
 
     private void ModifyStats(StatData data)
     {
         currentStats.AddStats(data);
-        Heal(data.Health);
+        Heal(null, data.Health);
     }
 
     private void ConsumeFood(FoodItem food)
@@ -312,6 +344,22 @@ public class CombatEntity : MonoBehaviour
         AnimatorStateInfo? info = animator?.GetNextAnimatorStateInfo(0);
         animTime = info?.length > 0.2f ? info.Value.length : 0.5f;
         return animTime;
+    }
+
+    public bool Resists(Skill skill)
+    {
+        return entityData.Resistances.Contains(skill);
+    }
+
+    public bool WeakTo(Skill skill)
+    {
+        return entityData.Weaknesses.Contains(skill);
+    }
+
+    protected int GetWeakResistValue(Skill skill, int original)
+    {
+        if (skill == null) return original;
+        return Mathf.RoundToInt(Resists(skill) ? original * 0.5f : (WeakTo(skill) ? original * 1.5f : original));
     }
 
     private void OnDestroy()

@@ -376,6 +376,7 @@ MonoBehaviour:
     speed: 0
   castAnimation: {fileID: 7400000, guid: 82992a29795d3d44da0e43e5dc6621d1, type: 2}
   entityDialogue: {fileID: 8490347127007553607}
+  statBar: {fileID: 8603710812056519619}
   rewardTable: {fileID: 11400000, guid: 27a14c3256226aa4eae6a4d9f2ce4cbb, type: 2}
 --- !u!111 &899057977573206712
 Animation:
@@ -937,5 +938,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1fed7d3c651ae9e48b8e15251ba797da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8603710812056519619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6621218974550373270, guid: 1bb9318100291fd4ebb546a8a7fc0f8a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3208197864202678357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392f7eaf9f91f7749b650ff27367095a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

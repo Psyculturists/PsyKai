@@ -39,7 +39,7 @@ public class CurrentSkillCard : MonoBehaviour
 
     private void Populate()
     {
-        skillNameText.text = housedSkill.skillName;
+        skillNameText.text = housedSkill == null ? "None" : housedSkill.skillName;
     }
 
     private void OnInteracted()

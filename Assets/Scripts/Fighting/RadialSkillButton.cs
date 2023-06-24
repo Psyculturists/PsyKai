@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class RadialSkillButton : MonoBehaviour
+public class BattleSkillButton : MonoBehaviour
 {
     [SerializeField]
     private Image skillImage;
@@ -12,9 +12,15 @@ public class RadialSkillButton : MonoBehaviour
     private TextMeshProUGUI skillText;
     [SerializeField]
     private Button button;
+    [SerializeField]
+    private GameObject weaknessIndicator;
+    [SerializeField]
+    private GameObject resistanceIndicator;
 
     [SerializeField]
     private Skill loadedSkill;
+
+    public bool hasSkillAssigned => loadedSkill != null;
 
     private System.Action<Skill> clickCallback;
 
@@ -32,6 +38,11 @@ public class RadialSkillButton : MonoBehaviour
         clickCallback = null;
     }
 
+    public void UpdateResistanceIndication(CombatEntity entitySelected)
+    {
+        resistanceIndicator.SetActive(entitySelected.Resists(loadedSkill));
+        weaknessIndicator.SetActive(entitySelected.WeakTo(loadedSkill));
+    }
 
     public void AssignSkill(Skill newSkill)
     {
@@ -47,6 +58,11 @@ public class RadialSkillButton : MonoBehaviour
     private void TryEvoke()
     {
         clickCallback?.Invoke(loadedSkill);
+    }
+
+    public void SetInteractive(bool state)
+    {
+        button.interactable = state;
     }
 
     private void SetFields()

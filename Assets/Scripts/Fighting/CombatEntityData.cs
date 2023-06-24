@@ -16,6 +16,14 @@ public class CombatEntityData : ScriptableObject
     private int expOnDefeat = 0;
     public int ExpOnDefeat => expOnDefeat;
 
+    [SerializeField]
+    private List<Skill> weaknesses;
+    public List<Skill> Weaknesses => weaknesses;
+
+    [SerializeField]
+    private List<Skill> resistances;
+    public List<Skill> Resistances => resistances;
+
     public Skill GetRandomSkill()
     {
         if(Skills == null)
