@@ -91,7 +91,7 @@ public class DialogueManager : MonoBehaviour
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
-        //inkExternalFunctions.Bind(currentStory);
+        inkExternalFunctions.Bind(currentStory);
 
         StartCoroutine(CenterCamera());
         previousCameraDistance = vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
@@ -127,9 +127,16 @@ public class DialogueManager : MonoBehaviour
         composer.m_DeadZoneHeight = deadZoneHeight;
     }
 
-    public void EnterFight()
+    public void EnterFight(string tag)
     {
-        EnemyEntityData enemy = talkerData.entityData;
+        EnemyEntityData enemy = new EnemyEntityData();
+        foreach (TagData item in tags)
+        {
+            if (tag == item.tag)
+            {
+                enemy = item.characterData.entityData;
+            }
+        }
         if (enemy != null)
         {
             StartCoroutine(ExitDialogueMode());
@@ -137,7 +144,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("A fight was triggered but no enemy data was passed.");
+            Debug.LogWarning("A fight was triggered but I couldnt find that character.");
         }
     }
 
@@ -154,7 +161,7 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        //inkExternalFunctions.Unbind(currentStory);
+        inkExternalFunctions.Unbind(currentStory);
 
         vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = previousCameraDistance;
 

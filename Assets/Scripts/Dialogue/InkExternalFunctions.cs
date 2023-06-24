@@ -8,9 +8,9 @@ public class InkExternalFunctions
 {
     public void Bind(Story story)
     {
-        story.BindExternalFunction("EnterFight", () =>
+        story.BindExternalFunction("EnterFight", (string characterTag) =>
         {
-            DialogueManager.GetInstance().EnterFight();
+            DialogueManager.GetInstance().EnterFight(characterTag);
         });
     }
 
