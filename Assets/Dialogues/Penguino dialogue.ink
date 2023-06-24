@@ -8,7 +8,7 @@ EXTERNAL EnterFight()
 Hello friend!
 + [Talk.]
     -> TALK
-+ [Fight.]
++ [Fight.] # Ed
     Here we go!
     ~ EnterFight()
     -> END

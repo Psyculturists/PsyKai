@@ -16,17 +16,16 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI name;
 
     [Header("Choices UI")]
-
+    private GameObject[] choices;
     public GameObject choicesPanel;
-    public GameObject[] choices;
 
     public CinemachineVirtualCamera vcCamera;
     public GameObject continuePanel;
     public float wordSpeed;
     public bool dialogueIsPlaying { get; private set; }
-    public float dialogueCameraDistance; 
+    public float dialogueCameraDistance;
+    public TagData[] tags;
 
-    private TextMeshProUGUI[] choicesText;
     private NPCData talkerData;
     private string dialogue;
     private Story currentStory;
@@ -54,14 +53,12 @@ public class DialogueManager : MonoBehaviour
         dialoguePanel.SetActive(false);
         continuePanel.SetActive(false);
         canContinue = false;
+        areChoices = false;
 
-        choicesText = new TextMeshProUGUI[choices.Length];
-        int index = 0;
-        foreach (GameObject choice in choices)
+        choices = new GameObject[choicesPanel.transform.childCount];
+        for (int i = 0; i < choices.Length; i++)
         {
-            choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
-            choice.gameObject.SetActive(false);
-            index++;
+            choices[i] = choicesPanel.transform.GetChild(i).gameObject;
         }
     }
 
@@ -78,7 +75,7 @@ public class DialogueManager : MonoBehaviour
         continuePanel.SetActive(canContinue);
         choicesPanel.SetActive(areChoices);
 
-        if ((Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && canContinue && !areChoices)
+        if (canContinue && !areChoices && (Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)))
         {
             ContinueStory();
         }
@@ -89,21 +86,30 @@ public class DialogueManager : MonoBehaviour
         return instance;
     }
 
-    public void EnterDialogueMode(TextAsset inkJSON, NPCData entityData)
+    public void EnterDialogueMode(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
-        talkerData = entityData;
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
-        inkExternalFunctions.Bind(currentStory);
-        talkerPortrait.sprite = talkerData.portrait;
-        name.text = talkerData.name;
+        //inkExternalFunctions.Bind(currentStory);
 
         StartCoroutine(CenterCamera());
         previousCameraDistance = vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance;
         vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = dialogueCameraDistance;
 
         ContinueStory();
+    }
+
+    private void ChangeTalker(string tag)
+    {
+        foreach (TagData item in tags)
+        {
+            if (tag == item.tag)
+            {
+                talkerPortrait.sprite = item.characterData.portrait;
+                name.text = item.characterData.name;
+            }
+        }
     }
 
     IEnumerator CenterCamera()
@@ -148,7 +154,7 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        inkExternalFunctions.Unbind(currentStory);
+        //inkExternalFunctions.Unbind(currentStory);
 
         vcCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = previousCameraDistance;
 
@@ -160,14 +166,21 @@ public class DialogueManager : MonoBehaviour
 
     private void ContinueStory()
     {
+        Debug.Log("Continuing story...");
         if (currentStory.canContinue)
         {
             dialogue = currentStory.Continue();
 
-            dialogueText.text = "";
-            DisplayChoices();
+            if (currentStory.currentTags.Count > 0)
+            {
+                ChangeTalker(currentStory.currentTags[0]);
+            }
 
-            ;
+            dialogueText.text = "";
+            if (currentStory.currentChoices.Count > 0)
+            {
+                DisplayChoices();
+            }
 
             if (dialogue.Equals("") && !currentStory.canContinue)
             {
@@ -187,33 +200,33 @@ public class DialogueManager : MonoBehaviour
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
-        if ( currentChoices.Count > choices.Length)
+
+        if (currentChoices.Count > choices.Length)
         {
-            Debug.LogError("More choices were given than the UI can handle. Were given " + currentChoices.Count + " choices.");
-            return;
+            Debug.LogError("You sent me more choices than I can handle. What are you doing? Tell Kraith about this.");
         }
 
         int index = 0;
         foreach (Choice choice in currentChoices)
         {
             choices[index].gameObject.SetActive(true);
-            choicesText[index].text = choice.text;
+            choices[index].GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
             index++;
         }
 
         for (int i = index; i < choices.Length; i++)
         {
-            choices[i].gameObject.SetActive(false); 
+            choices[i].gameObject.SetActive(false);
         }
 
-        StartCoroutine(SelectFirstChoice());
+        StartCoroutine(SelectFirstChoice(choices[0]));
     }
 
-    private IEnumerator SelectFirstChoice()
+    private IEnumerator SelectFirstChoice(GameObject button)
     {
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();
-        EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
     }
 
     public void MakeChoice(int choiceIndex)

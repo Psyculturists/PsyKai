@@ -32,7 +32,7 @@ public class ParallaxScroller : MonoBehaviour
         }
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (mainCamera != null)
         {

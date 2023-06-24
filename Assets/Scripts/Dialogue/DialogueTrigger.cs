@@ -34,7 +34,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void EnterDialogue()
     {
-        DialogueManager.GetInstance().EnterDialogueMode(inkAsset, gameObject.GetComponent<NPC>().data);
+        DialogueManager.GetInstance().EnterDialogueMode(inkAsset);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
