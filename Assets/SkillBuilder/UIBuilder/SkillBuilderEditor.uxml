@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
     <Style src="project://database/Assets/SkillBuilder/UIBuilder/SkillBuilderEditor.uss?fileID=7433441132597879392&amp;guid=b3ee5683d6dbb4a42a9b623adb83e4a0&amp;type=3#SkillBuilderEditor" />
-    <ui:Label tabindex="-1" text="Skill Builder &amp; You &lt;3" display-tooltip-when-elided="true" style="-unity-text-align: middle-center; font-size: 20px; -unity-font-style: bold;" />
+    <ui:Label tabindex="-1" text="Skill Builder &amp; You &lt;3" display-tooltip-when-elided="true" tooltip="More like Skill Builder Issues, lol" style="-unity-text-align: middle-center; font-size: 20px; -unity-font-style: bold;" />
     <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row;">
         <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-shrink: 1; max-width: none; max-height: none; width: 30%;">
             <ui:Button text="Create Skill" display-tooltip-when-elided="true" name="create-skill-btn" class="btn" style="background-color: rgb(36, 87, 129); padding-left: 8px; padding-right: 8px; padding-top: 4px; padding-bottom: 4px; -unity-font-style: bold; font-size: 13px;" />
@@ -13,28 +13,30 @@
             <ui:TextField picking-mode="Ignore" label="Skill Name" value="New Skill" name="skill-name-field" />
             <ui:TextField picking-mode="Ignore" name="description-field" multiline="true" label="Description" class="section" style="height: 87px; flex-direction: column; background-color: rgba(0, 0, 0, 0); flex-wrap: wrap;" />
             <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-shrink: 0;">
-                <ui:IntegerField label="Required Level" value="1" name="required-level-field" style="justify-content: center;" />
+                <ui:IntegerField label="Required Level" value="1" name="required-level-field" tooltip="The minimum required level the user needs to be in order to use this Skill." style="justify-content: center;" />
                 <ui:VisualElement class="section" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-direction: column; align-self: flex-start; align-items: stretch; min-width: auto; max-width: none; width: 80%; justify-content: space-around; height: auto; min-height: auto; max-height: none; flex-wrap: nowrap; flex-basis: auto; flex-shrink: 0;">
-                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; align-self: stretch; align-items: center; flex-shrink: 0;">
-                        <ui:Label tabindex="-1" text="Can the Skill &lt;b&gt;affect&lt;/b&gt; the user?" display-tooltip-when-elided="true" />
+                    <ui:VisualElement tooltip="If the value of this checkbox is &lt;b&gt;YES&lt;/b&gt;, then this Skill can be applied to the user." style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; align-self: stretch; align-items: center; flex-shrink: 0;">
+                        <ui:Label tabindex="-1" text="Does the Skill &lt;b&gt;affect&lt;/b&gt; the user?" display-tooltip-when-elided="true" />
                         <ui:VisualElement name="switch-toggle" style="flex-shrink: 0;">
                             <ui:Toggle name="self-target-toggle" value="false" focusable="true" class="toggle-switch" style="flex-direction: row-reverse;">
+                                <ui:Label tabindex="-1" text="YES     NO" display-tooltip-when-elided="true" name="label-on" style="width: 14px; height: 14px; text-overflow: clip; -unity-text-align: middle-left; align-self: center; translate: -17px 0; font-size: 7px; -unity-font-style: bold;" />
                                 <ui:VisualElement focusable="false" class="toggle-switch-knob toggle-switch" style="align-self: center; flex-direction: column; position: relative; width: 14px; height: 14px;" />
                             </ui:Toggle>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; align-self: stretch; align-items: center; flex-shrink: 0;">
-                        <ui:Label tabindex="-1" text="Does the Skill &lt;b&gt;heals&lt;/b&gt;?" display-tooltip-when-elided="true" />
+                    <ui:VisualElement tooltip="This checkbox indicates if the skill will heal/damage the &lt;b&gt;target&lt;/b&gt; according to a certain amount. (The target can also be the user who uses the skill). This checkbox must be on for player skills if they are healing the enemy." style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); flex-direction: row; justify-content: space-between; align-self: stretch; align-items: center; flex-shrink: 0;">
+                        <ui:Label tabindex="-1" text="Does it &lt;b&gt;heal&lt;/b&gt; the target?" display-tooltip-when-elided="true" />
                         <ui:VisualElement name="switch-toggle" style="flex-shrink: 0;">
                             <ui:Toggle name="heal-toggle" value="false" focusable="true" class="toggle-switch" style="flex-direction: row-reverse;">
+                                <ui:Label tabindex="-1" text="YES     NO" display-tooltip-when-elided="true" name="label-on" style="width: 14px; height: 14px; text-overflow: clip; -unity-text-align: middle-left; align-self: center; translate: -17px 0; font-size: 7px; -unity-font-style: bold;" />
                                 <ui:VisualElement focusable="false" class="toggle-switch-knob toggle-switch" style="align-self: center; flex-direction: column; position: relative; width: 14px; height: 14px;" />
                             </ui:Toggle>
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); height: auto; max-height: none; flex-shrink: 0;">
-                    <ui:SliderInt picking-mode="Ignore" label="How much does it damage?" value="0" high-value="100" show-input-field="true" page-size="0" name="amount-slider" binding-path="damage" style="flex-direction: column;" />
-                    <ui:FloatField label="Set the Attack Scaling percentage " value="100" name="attack-scaling-field" style="flex-direction: row; align-items: stretch; justify-content: center; margin-top: 8px;" />
+                    <ui:SliderInt picking-mode="Ignore" label="How much does it damage?" value="0" high-value="100" show-input-field="true" page-size="0" name="amount-slider" binding-path="damage" tooltip="The amount to heal/damage, if you need a value greater than 100 go and complain with Alan." style="flex-direction: column;" />
+                    <ui:FloatField label="Set the Attack Scaling percentage " value="100" name="attack-scaling-field" tooltip="This sets the percentage by which the heal/damage amount is increased (values greater than 100%) or decreased (values less than 100%)" style="flex-direction: row; align-items: stretch; justify-content: center; margin-top: 8px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement class="section" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); height: auto; max-height: none; flex-shrink: 1; align-items: flex-end; align-self: flex-end; justify-content: flex-end; flex-direction: column;">

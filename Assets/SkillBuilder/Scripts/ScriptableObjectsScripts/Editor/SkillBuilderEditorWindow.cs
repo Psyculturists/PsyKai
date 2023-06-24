@@ -82,7 +82,7 @@ public class SkillBuilderEditorWindow : EditorWindow
 
 			healToggle.RegisterCallback<ChangeEvent<bool>>((evt) =>
 			{
-				var choice = evt.newValue ? "heals" : "damage";
+				var choice = evt.newValue ? "heal" : "damage";
 				amountSlider.label = string.Format("How much does it {0}?", choice);
 			});
 		};
