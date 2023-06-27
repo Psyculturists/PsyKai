@@ -47,3 +47,14 @@ public class EventTrigger2D : MonoBehaviour
 		}
 	}
 }
+
+
+
+[System.Serializable]
+public class InputKeyEvent
+{
+	public string inputKey;
+	public UnityEvent onInputKey;
+	public UnityEvent onInputKeyUp;
+	public UnityEvent onInputKeyDown;
+}

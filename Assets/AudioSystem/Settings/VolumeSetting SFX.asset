@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ece876103af4e44980082f42355548c, type: 3}
+  m_Name: VolumeSetting SFX
+  m_EditorClassIdentifier: 
+  masterChannel: {fileID: 11400000, guid: ab7398b46c47af14cb631decca0e5bf9, type: 2}
+  volumeName: SFXVolume
