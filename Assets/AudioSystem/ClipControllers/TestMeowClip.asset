@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c7528c5cb55ec409d6e06881e712e3, type: 3}
+  m_Name: TestMeowClip
+  m_EditorClassIdentifier: 
+  clipName: 
+  audioClip: {fileID: 8300000, guid: 0494a75de424a384c97a4ea1b319ad71, type: 3}
+  audioChannel: {fileID: 11400000, guid: 90999f872c9606741a27545f150480ae, type: 2}
+  loopClip: 0
