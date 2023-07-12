@@ -5,10 +5,10 @@ EXTERNAL EnterFight()
 
 == START ==
 // You can start writing here!
-Hello friend!
+Hello friend! # Penguino
 + [Talk.]
     -> TALK
-+ [Fight.] # Ed
++ [Fight.]
     Here we go!
     ~ EnterFight()
     -> END
