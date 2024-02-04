@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8de39494474d0554f98eb9df2e7c9ec2, type: 3}
+  m_Name: MushroomMan
+  m_EditorClassIdentifier: 
+  name: Mushroom Man
+  portrait: {fileID: 3367894255997762107, guid: bdf1dde86f1ccd34993b17e63fdcc48d,
+    type: 3}
+  entityData: {fileID: 11400000, guid: 4c1ced9eed26e0441be05a069789a82d, type: 2}

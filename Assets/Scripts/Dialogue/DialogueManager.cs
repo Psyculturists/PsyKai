@@ -35,6 +35,10 @@ public class DialogueManager : MonoBehaviour
     private InkExternalFunctions inkExternalFunctions;
     private float previousCameraDistance;
     private bool isFighting;
+    private bool isTalking;
+    private bool talkingSkipped;
+    private bool firstLine;
+    private int frameCount;
 
     private void Awake()
     {
@@ -55,6 +59,9 @@ public class DialogueManager : MonoBehaviour
         continuePanel.SetActive(false);
         canContinue = false;
         areChoices = false;
+        isTalking = false;
+        talkingSkipped = false;
+        frameCount = 0;
 
         choices = new GameObject[choicesPanel.transform.childCount];
         for (int i = 0; i < choices.Length; i++)
@@ -67,9 +74,11 @@ public class DialogueManager : MonoBehaviour
     {
         if (!dialogueIsPlaying)
         {
+            frameCount = 0;
             return;
         }
 
+        countFrames();
         canContinue = (dialogue == dialogueText.text);
         areChoices = (currentStory.currentChoices.Count > 0 && canContinue);
 
@@ -81,6 +90,25 @@ public class DialogueManager : MonoBehaviour
         {
             ContinueStory();
         }
+        else if(!canContinue && !areChoices && !isFighting && (Input.GetButtonDown("Interact") || Input.GetMouseButtonDown(0)) && skipFirstDialogueFrame())
+        {
+            talkingSkipped = true;
+            Debug.Log("Dialogue skipped...");
+        }
+    }
+
+    private bool skipFirstDialogueFrame()
+    {        
+        if (frameCount > 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private void countFrames()
+    {
+        frameCount++;
     }
 
     public static DialogueManager GetInstance()
@@ -92,6 +120,7 @@ public class DialogueManager : MonoBehaviour
     {
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
+        talkingSkipped = false;
         dialoguePanel.SetActive(true);
         inkExternalFunctions.Bind(currentStory);
 
@@ -152,11 +181,22 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator Typing()
     {
+        isTalking = true;
+
         foreach (char letter in dialogue.ToCharArray())
         {
+            if(talkingSkipped)
+            {
+                dialogueText.text = dialogue;
+                break;
+            }
+
             dialogueText.text += letter;
             yield return new WaitForSeconds(wordSpeed);
         }
+
+        isTalking = false;
+        talkingSkipped = false;
     }
 
     private IEnumerator ExitDialogueMode()
@@ -179,7 +219,7 @@ public class DialogueManager : MonoBehaviour
         if (currentStory.canContinue)
         {
             dialogue = currentStory.Continue();
-
+             
             if (currentStory.currentTags.Count > 0)
             {
                 ChangeTalker(currentStory.currentTags[0]);
